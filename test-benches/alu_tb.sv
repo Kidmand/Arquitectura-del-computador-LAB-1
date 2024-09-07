@@ -67,7 +67,9 @@ module alu_tb();
 
          i++; #5ns;
         if (inputs_and_expected_outputs[i] === 'x) begin
-            $display("Errores totales: %d.", errors);
+            $display("\n=========================================================================");
+            $display("alu_tb: %d tests completados con %d errores", 30, errors);
+            $display("=========================================================================\n");
             $stop;
         end
     end

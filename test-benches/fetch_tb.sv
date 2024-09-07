@@ -59,7 +59,9 @@ module fetch_tb();
             errors++;
         end
         # 5ns;
-        $display("Ocurrieron %d errores en el fecth_tb.", errors);
+        $display("\n=========================================================================");
+        $display("fetch_tb:      tests completados con %d errores", errors);
+        $display("=========================================================================\n");
         $stop;
     end
 

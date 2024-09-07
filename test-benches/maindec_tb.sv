@@ -65,7 +65,9 @@ module maindec_tb();
             end
             # 8ns;
         end
-        $display("Ocurrieron %d errores en el maindec_tb.", errors);
+        $display("\n=========================================================================");
+        $display("maindec_tb: %d tests completados con %d errores",10, errors);
+        $display("=========================================================================\n");
         $stop;
     end
 

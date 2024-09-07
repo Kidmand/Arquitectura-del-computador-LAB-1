@@ -83,7 +83,9 @@ module regfile_tb();
             errors++;
         end
         # 5ns;
-        $display("Se detectaron %d errores en el test de regfile",errors);
+        $display("\n=========================================================================");
+        $display("regfile_tb:      tests completados con %d errores", errors);
+        $display("=========================================================================\n");
         $stop;
     end
 

@@ -45,7 +45,9 @@ module imem_tb();
             end
             #8ns;
         end
-        $display("Errores totales: %d.", errors);
+        $display("\n=========================================================================");
+        $display("imem_tb: %d tests completados con %d errores",50, errors);
+        $display("=========================================================================\n");
     end
 
 endmodule

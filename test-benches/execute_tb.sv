@@ -106,9 +106,9 @@ module execute_tb();
             _vector_index_++;
         end
         if (_vector_index_ == `TESTVECTOR_SIZE+1) begin
-            $display("\n==============================================================");
-            $display("%d tests completados con %d errores", `TESTVECTOR_SIZE, _error_count_);
-            $display("==============================================================\n");
+            $display("\n=========================================================================");
+            $display("execute_tb: %d tests completados con %d errores", `TESTVECTOR_SIZE, _error_count_);
+            $display("=========================================================================\n");
             $stop;
         end
     end

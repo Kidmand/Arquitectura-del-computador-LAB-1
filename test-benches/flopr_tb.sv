@@ -61,7 +61,9 @@ module flopr_tb();
 
             if (d === 'x) // Terminamos todos los casos de uso asique paramos.
                 begin
-                    $display("Se detectaron %d errores en el test de flopr",errors);
+                    $display("\n=================================================================");
+                    $display("flopr_tb:  tests completados con %d errores", errors);
+                    $display("=================================================================\n");
                     $stop;
                 end
 
