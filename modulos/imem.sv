@@ -3,11 +3,7 @@ module imem
     input logic [5:0] addr,
     output logic [N-1:0] q );
 
-    //       --------------> BIT + SIGNIFICATIVO (ie el de mas a la izquierda)
-    //      /           /
     logic [N-1:0] ROM [0:63] = '{default: 32'b0};
-    //          \          \
-    //           -------------> BIT - SIGNIFICATIVO (ie el de mas a la derecha)
 
     initial begin
         ROM [0:46] = '{
