@@ -1,0 +1,19 @@
+{
+  "files.exclude": {
+    "**/db": true,
+    "**/incremental_db": true,
+    "**/output_files": true,
+    "**/simulation": true,
+    "**/*.rpt": true,
+    "**/*.qws": true,
+    "**/*.bak": true
+  },
+  "search.exclude": {
+    "**/db": true,
+    "**/incremental_db": true,
+    "**/output_files": true,
+    "**/simulation": true,
+    "**/*.rpt": true,
+    "**/*.qws": true
+  }
+}
