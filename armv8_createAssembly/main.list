@@ -20,3 +20,15 @@ Desensamblado de la sección .text:
 
 0000000000000028 <End>:
   28:	f8000003 	stur	x3, [x0]
+  2c:	cb0e01ce 	sub	x14, x14, x14
+  30:	9100022f 	add	x15, x17, #0x0
+
+0000000000000034 <LOOP>:
+  34:	b400008f 	cbz	x15, 44 <FIN>
+  38:	8b1001ce 	add	x14, x14, x16
+  3c:	d10005ef 	sub	x15, x15, #0x1
+  40:	17fffffd 	b	34 <LOOP>
+
+0000000000000044 <FIN>:
+  44:	cb0d01ad 	sub	x13, x13, x13
+  48:	f80001ae 	stur	x14, [x13]

@@ -11,15 +11,15 @@ Guión del enlazador y mapa de memoria
 
 LOAD main.o
 
-.text           0x0000000000000000       0x2c
+.text           0x0000000000000000       0x4c
  *(.text*)
- .text          0x0000000000000000       0x2c main.o
+ .text          0x0000000000000000       0x4c main.o
 
-.data           0x000000000000002c        0x0
- .data          0x000000000000002c        0x0 main.o
+.data           0x000000000000004c        0x0
+ .data          0x000000000000004c        0x0 main.o
 
-.bss            0x000000000000002c        0x0
+.bss            0x000000000000004c        0x0
  *(.bss*)
- .bss           0x000000000000002c        0x0 main.o
+ .bss           0x000000000000004c        0x0 main.o
 OUTPUT(main.elf elf64-littleaarch64)
 LOAD linker stubs
