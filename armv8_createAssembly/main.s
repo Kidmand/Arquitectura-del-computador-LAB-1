@@ -1,23 +1,25 @@
     .text
     .org 0x0000
-/* 
+
 // ------------------ EJ 2.A ------------------- //
 
 // Con la menor cantidad de registros e instrucciones, inicializar con el valor de su
 // índice las primeras N posiciones de memoria (comenzando en la dirección “0”).
 
-    ADD x9, x30, x30 
-    ADD x9, x9, x4
-    ADD x10, xzr, xzr
-    ADD X11, xzr, xzr
+    // Inicialización del contador
+    ADD x9, x30, x30    // x9 = 30 + 30 = 60
+    ADD x9, x9, x4      // x9 = 60 + 4 = 64
+    
+    ADD x10, xzr, xzr   // x10 = 0 Variable para la dirección de memoria
+    ADD X11, xzr, xzr   // x11 = 0 Variable para el valor a guardar
 
 loop:
-    STUR x11, [x10]
-    ADD x10, x10, x8
-    ADD x11, x11, x1
-    SUB x9, x9, x1
-    CBZ  x9, finloop 
-    CBZ  xzr, loop
+    STUR x11, [x10]     // Guardar el valor de x11 en la dirección x10
+    ADD x10, x10, x8    // Avanzar la dirección en 8 bytes
+    ADD x11, x11, x1    // Incrementar el valor de x11
+    SUB x9, x9, x1      // Decrementar el contador
+    CBZ  x9, finloop    // Revisar si el contador es 0, si es así, terminamos
+    CBZ  xzr, loop      // Sino volvemos al inicio del bucle
 
 end: CBZ XZR, end		// Bucle infinito
 
@@ -48,7 +50,7 @@ end:
 end1: CBZ XZR, end1			  // Bucle infinito
 
 // ------------------- FIN -------------------- //
-*/
+
 // ------------------ EJ 2.C ------------------- //
 
 // Realizar la multiplicación de dos registros: X16 y X17 y
