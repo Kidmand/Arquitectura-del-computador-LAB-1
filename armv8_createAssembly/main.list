@@ -4,31 +4,20 @@ main.elf:     formato del fichero elf64-littleaarch64
 
 Desensamblado de la sección .text:
 
-0000000000000000 <Loop-0x10>:
-   0:	cb000000 	sub	x0, x0, x0
-   4:	cb030063 	sub	x3, x3, x3
-   8:	91002801 	add	x1, x0, #0xa
-   c:	b40000e1 	cbz	x1, 28 <End>
+0000000000000000 <loop-0xc>:
+   0:	cb0e01ce 	sub	x14, x14, x14
+   4:	8b1f022f 	add	x15, x17, xzr
+   8:	b40000af 	cbz	x15, 1c <end>
 
-0000000000000010 <Loop>:
-  10:	f8400002 	ldur	x2, [x0]
-  14:	8b020063 	add	x3, x3, x2
-  18:	91002000 	add	x0, x0, #0x8
-  1c:	d1000421 	sub	x1, x1, #0x1
-  20:	b4000041 	cbz	x1, 28 <End>
-  24:	b4ffff7f 	cbz	xzr, 10 <Loop>
+000000000000000c <loop>:
+   c:	8b1001ce 	add	x14, x14, x16
+  10:	cb0101ef 	sub	x15, x15, x1
+  14:	b400004f 	cbz	x15, 1c <end>
+  18:	b4ffffbf 	cbz	xzr, c <loop>
 
-0000000000000028 <End>:
-  28:	f8000003 	stur	x3, [x0]
-  2c:	cb0e01ce 	sub	x14, x14, x14
-  30:	9100022f 	add	x15, x17, #0x0
+000000000000001c <end>:
+  1c:	cb0d01ad 	sub	x13, x13, x13
+  20:	f80001bf 	stur	xzr, [x13]
 
-0000000000000034 <LOOP>:
-  34:	b400008f 	cbz	x15, 44 <FIN>
-  38:	8b1001ce 	add	x14, x14, x16
-  3c:	d10005ef 	sub	x15, x15, #0x1
-  40:	17fffffd 	b	34 <LOOP>
-
-0000000000000044 <FIN>:
-  44:	cb0d01ad 	sub	x13, x13, x13
-  48:	f80001ae 	stur	x14, [x13]
+0000000000000024 <end1>:
+  24:	b400001f 	cbz	xzr, 24 <end1>

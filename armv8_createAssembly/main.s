@@ -1,6 +1,6 @@
     .text
     .org 0x0000
-
+/* 
 // ------------------ EJ 2.A ------------------- //
 
 // Con la menor cantidad de registros e instrucciones, inicializar con el valor de su
@@ -37,8 +37,8 @@ end: CBZ XZR, end		// Bucle infinito
 loop:
     LDUR x14, [x10]            // Cargar el valor desde la dirección base en x14
     ADD  x13, x13, x14          // Sumar el valor en x14 al acumulador x13
-    ADD  x10, x10, #8          // Avanzar la dirección base en 8 bytes
-    SUB  x12, x12, #1          // Decrementar el contador N
+    ADD  x10, x10, X8          // Avanzar la dirección base en 8 bytes
+    SUB  x12, x12, X1          // Decrementar el contador N
     
     CBZ  x12, end             // Verificar de nuevo si x12 es 0, si es así, saltar a End
     CBZ  xzr, loop           // Volver al inicio del bucle si x12 no es 0 (xzr siempre es 0, así que esto siempre regresa al bucle)
@@ -48,24 +48,26 @@ end:
 end1: CBZ XZR, end1			  // Bucle infinito
 
 // ------------------- FIN -------------------- //
-
+*/
 // ------------------ EJ 2.C ------------------- //
 
 // Realizar la multiplicación de dos registros: X16 y X17 y
 // guardar el resultado en la posición “0” de la memoria.
 
     SUB X14, X14, X14      // Inicializar X14 (temporal) a 0 (Acumulador para el resultado)
-	ADD X15, X17, #0       // Inicializar X15 (temporal) a X17 (Para llevar el conteo de iteraciones)
+	ADD X15, X17, XZR       // Inicializar X15 (temporal) a X17 (Para llevar el conteo de iteraciones)
 
 	CBZ X15, end           // Si X15 es 0, saltar a "end"
 loop:  
     ADD X14, X14, X16      // Sumar X16 a X14 (Resultado acumulado)
-    SUB X15, X15, #1       // Decrementar el contador
+    SUB X15, X15, X1       // Decrementar el contador
 	CBZ  x15, end          // Verificar de nuevo si x15 es 0, si es así, saltar a End
-    CBZ  xzr, loop         // Volver al inicio del bucle si x15 no es 0 (xzr siempre es 0, así que esto siempre regresa al bucle)
+    CBZ  XZR, loop         // Volver al inicio del bucle si x15 no es 0 (xzr siempre es 0, así que esto siempre regresa al bucle)
 
 end: 
 	SUB X13, X13, X13      // Inicializar X13 (temporal) a 0
-    STUR X14, [X13, #0]    // Guardar el resultado en la dirección 0 de memoria
+    STUR XZR, [X13]    // Guardar el resultado en la dirección 0 de memoria
+
 end1: CBZ XZR, end1        // Bucle infinito
+
 // ------------------- FIN -------------------- //
