@@ -57,7 +57,7 @@ end1: CBZ XZR, end1           // Bucle infinito
 // guardar el resultado en la posición “0” de la memoria.
 
     SUB X14, X14, X14      // Inicializar X14 (temporal) a 0 (Acumulador para el resultado)
-    ADD X15, X17, XZR       // Inicializar X15 (temporal) a X17 (Para llevar el conteo de iteraciones)
+    ADD X15, X17, XZR      // Inicializar X15 (temporal) a X17 (Para llevar el conteo de iteraciones)
 
     CBZ X15, end           // Si X15 es 0, saltar a "end"
 loop:  
@@ -67,7 +67,7 @@ loop:
     CBZ  XZR, loop         // Volver al inicio del bucle si x15 no es 0 (xzr siempre es 0, así que esto siempre regresa al bucle)
 
 end: 
-    STUR X14, [xzr]        // Guardar el resultado en la dirección 0 de memoria
+    STUR X14, [XZR]        // Guardar el resultado en la dirección 0 de memoria
 
 end1: CBZ XZR, end1        // Bucle infinito
 
