@@ -30,12 +30,12 @@ module signext_tb();
     };
 
     logic [61:0] outputs [7:0] = {
-            {{55{inputs_data_type_D[3][8]}}   , {inputs_data_type_D[3]}},          // LDUR POSITIVO+
-            {{55{inputs_data_type_D[2][8]}}   , {inputs_data_type_D[2]}},          // LDUR NEGATIVO-
-            {{55{inputs_data_type_D[1][8]}}   , {inputs_data_type_D[1]}},          // STUR POSITIVO+
-            {{55{inputs_data_type_D[0][8]}}   , {inputs_data_type_D[0]}},          // STUR NEGATIVO-
-            {{43{inputs_data_type_CB[1][18]}} , {inputs_data_type_CB[1]}, 2'b00},  // CBZ POSITIVO+
-            {{43{inputs_data_type_CB[0][18]}} , {inputs_data_type_CB[0]}, 2'b00},  // CBZ NEGATIVO-
+            {{55{inputs_data_type_D[3][8]}}   , {inputs_data_type_D[3]}},   // LDUR POSITIVO+
+            {{55{inputs_data_type_D[2][8]}}   , {inputs_data_type_D[2]}},   // LDUR NEGATIVO-
+            {{55{inputs_data_type_D[1][8]}}   , {inputs_data_type_D[1]}},   // STUR POSITIVO+
+            {{55{inputs_data_type_D[0][8]}}   , {inputs_data_type_D[0]}},   // STUR NEGATIVO-
+            {{45{inputs_data_type_CB[1][18]}} , {inputs_data_type_CB[1]}},  // CBZ POSITIVO+
+            {{45{inputs_data_type_CB[0][18]}} , {inputs_data_type_CB[0]}},  // CBZ NEGATIVO-
             {'0},{'0} // NOT_INSTRUCTION
     };
 
