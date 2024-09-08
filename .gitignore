@@ -36,3 +36,4 @@ incremental_db/
 db/
 _output_files/
 simulation/modelsim/*
+!simulation/modelsim/wave_**.do
