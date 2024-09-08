@@ -1,0 +1,22 @@
+
+main.elf:     formato del fichero elf64-littleaarch64
+
+
+Desensamblado de la sección .text:
+
+0000000000000000 <Loop-0x10>:
+   0:	cb000000 	sub	x0, x0, x0
+   4:	cb030063 	sub	x3, x3, x3
+   8:	91002801 	add	x1, x0, #0xa
+   c:	b40000e1 	cbz	x1, 28 <End>
+
+0000000000000010 <Loop>:
+  10:	f8400002 	ldur	x2, [x0]
+  14:	8b020063 	add	x3, x3, x2
+  18:	91002000 	add	x0, x0, #0x8
+  1c:	d1000421 	sub	x1, x1, #0x1
+  20:	b4000041 	cbz	x1, 28 <End>
+  24:	b4ffff7f 	cbz	xzr, 10 <Loop>
+
+0000000000000028 <End>:
+  28:	f8000003 	stur	x3, [x0]
