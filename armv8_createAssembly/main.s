@@ -24,3 +24,21 @@ End:
 
 
 //------------------Escriban su código debajo de esto-------------------//
+
+// 2-C) Realizar la multiplicación de dos registros: X16 y X17 y
+// guardar el resultado en la posición “0” de la memoria.
+
+    SUB X14, X14, X14      // Inicializar X14 (temporal) a 0 (Acumulador para el resultado)
+	ADD X15, X17, #0       // Inicializar X15 (temporal) a X17 (Para llevar el conteo de iteraciones)
+
+LOOP:  
+	CBZ X15, FIN           // Si X15 es 0, saltar a FIN
+    ADD X14, X14, X16      // Sumar X16 a X14 (Resultado acumulado)
+    SUB X15, X15, #1       // Decrementar el contador
+    B LOOP                 // Repetir el bucle
+
+FIN: 
+	SUB X13, X13, X13      // Inicializar X13 (temporal) a 0
+    STUR X14, [X13, #0]    // Guardar el resultado en la dirección 0 de memoria
+
+//------------------Escriban su código debajo de esto-------------------//
