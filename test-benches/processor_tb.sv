@@ -23,7 +23,8 @@ module processor_tb();
       CLOCK_50 = 0; reset = 1; dump = 0;
       #20 reset = 0;
       // #400 dump = 1;
-      #520 dump = 1;
+      // #520 dump = 1;  // EJ 1
+      // #3900 dump = 1; // EJ 2.1
       #20 $stop;
     end
 
