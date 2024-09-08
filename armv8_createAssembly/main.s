@@ -18,7 +18,7 @@ loop:
     ADD x10, x10, x8    // Avanzar la dirección en 8 bytes
     ADD x11, x11, x1    // Incrementar el valor de x11
     SUB x9, x9, x1      // Decrementar el contador
-    CBZ  x9, finloop    // Revisar si el contador es 0, si es así, terminamos
+    CBZ  x9, end        // Revisar si el contador es 0, si es así, terminamos
     CBZ  xzr, loop      // Sino volvemos al inicio del bucle
 
 end: CBZ XZR, end		// Bucle infinito
