@@ -42,7 +42,7 @@ module datapath #(parameter N = 64)
 
     execute     #(64)     EXECUTE     (.AluSrc(AluSrc),
                                         .AluControl(AluControl),
-                                        .PC_E(IM_addr),
+                                        .pC_E(IM_addr),
                                         .signImm_E(signImm),
                                         .readData1_E(readData1),
                                         .readData2_E(readData2),
