@@ -22,7 +22,7 @@ module imem
     end
 
     always_comb begin
-        q = ROM[addr[5:0]];
+        q = ROM[addr];
     end
 
 endmodule
