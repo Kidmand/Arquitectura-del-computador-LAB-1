@@ -9,13 +9,13 @@ use STD.TEXTIO.all;
 use IEEE.STD_LOGIC_SIGNED.all;
 use ieee.numeric_std.all;
 
-entity dmem is -- data memory	
+entity dmem is -- data memory    
    port(clk, memWrite, memRead:  in STD_LOGIC;
        address :    in STD_LOGIC_VECTOR(5 downto 0);
-		 writeData :    in STD_LOGIC_VECTOR(64-1 downto 0);
+         writeData :    in STD_LOGIC_VECTOR(64-1 downto 0);
        readData:       out STD_LOGIC_VECTOR(64-1 downto 0);
        dump: in STD_LOGIC
-		 );
+         );
 end;
 
 architecture behave of dmem is
@@ -31,39 +31,39 @@ architecture behave of dmem is
    variable dumpline : line;
    variable i: natural := 0;
    begin
-		write(dumpline, string'("Memoria RAM de Arm:"));
-		writeline(dumpfile,dumpline);
-		write(dumpline, string'("Address Data"));
-		writeline(dumpfile,dumpline);
+        write(dumpline, string'("Memoria RAM de Arm:"));
+        writeline(dumpfile,dumpline);
+        write(dumpline, string'("Address Data"));
+        writeline(dumpfile,dumpline);
       while i <= MAX_BOUND-1 loop        
-		  write(dumpline, i);
-		  write(dumpline, string'(" "));
-		  write(dumpline, to_bitvector(mem(i)));		
-		  -- Para obtener el resultado en hexa, reemplazar la línea anterior por: hwrite(dumpline, to_bitvector(mem(i)));
-		  -- Si Quartus da error, configurar: Settings - Compiler Settings - VHDL Input - VHDL 2008			  
-		  writeline(dumpfile,dumpline);
+          write(dumpline, i);
+          write(dumpline, string'(" "));
+          write(dumpline, to_bitvector(mem(i)));        
+          -- Para obtener el resultado en hexa, reemplazar la línea anterior por: hwrite(dumpline, to_bitvector(mem(i)));
+          -- Si Quartus da error, configurar: Settings - Compiler Settings - VHDL Input - VHDL 2008              
+          writeline(dumpfile,dumpline);
         i:=i+1;
       end loop;
-		assert false report "fin del testdump" severity note;
+        assert false report "fin del testdump" severity note;
    end procedure memDump;
 
 begin
    process(clk, address, mem, memWrite, memRead)
-	begin 
-	  if clk'event and clk = '1' and memWrite = '1' then
-				mem(conv_integer("0" & address(5 downto 0))) <= writeData;
-	  end if;
-	  if memRead = '1' then
-			readData <= mem(conv_integer("0" & address(5 downto 0))); -- word aligned
-	  else
-			readData <= (others => '0');
-	  end if;
-	end process;
-	
-	process(dump)
-	begin
-	 if dump = '1' then
-	   memDump;
-	 end if;
-	end process;
+    begin 
+      if clk'event and clk = '1' and memWrite = '1' then
+                mem(conv_integer("0" & address(5 downto 0))) <= writeData;
+      end if;
+      if memRead = '1' then
+            readData <= mem(conv_integer("0" & address(5 downto 0))); -- word aligned
+      else
+            readData <= (others => '0');
+      end if;
+    end process;
+    
+    process(dump)
+    begin
+     if dump = '1' then
+       memDump;
+     end if;
+    end process;
 end;
