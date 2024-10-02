@@ -16,19 +16,8 @@ module regfile(
         64'd0 // El registro 31 siempre es el XZR.
     };
     always_comb begin
-        // Por si se está escribiendo en un registro que se está leyendo
-        if (we3 === '1 && ra1 === wa3) begin
-            rd1 = wd3;
-        end else begin
-            rd1 = regs[ra1];
-        end
-
-        // Por si se está escribiendo en un registro que se está leyendo
-        if (we3 === '1 && ra2 === wa3) begin
-            rd2 = wd3;
-        end else begin
-            rd2 = regs[ra2];
-        end
+        rd1 = (we3 && wa3 !== 31 && wa3 === ra1 ? wd3 : regs[ra1]);
+        rd2 = (we3 && wa3 !== 31 && wa3 === ra2 ? wd3 : regs[ra2]);
     end
 
 
