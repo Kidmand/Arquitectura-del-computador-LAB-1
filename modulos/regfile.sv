@@ -16,19 +16,20 @@ module regfile(
         64'd0 // El registro 31 siempre es el XZR.
     };
     always_comb begin
-        // Inicializar las salidas
-        rd1 = regs[ra1];
-        rd2 = regs[ra2];
-
         // Si se está escribiendo en un registro que se está leyendo
-        if (we3 === '1) begin
-            if (ra1 === wa3) begin
+
+            if (we3 === '1 && ra1 === wa3) begin
                 rd1 = wd3;
-            end
-            if (ra2 === wa3) begin
+            end else
+                begin
+                    rd1 = regs[ra1];
+                end
+            if (we3 === '1 && ra2 === wa3) begin
                 rd2 = wd3;
-            end
-        end
+            end else
+                begin
+                    rd2 = regs[ra2];
+                end
     end
 
 
