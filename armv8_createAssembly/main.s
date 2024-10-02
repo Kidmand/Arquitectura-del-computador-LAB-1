@@ -1,6 +1,13 @@
     .text
     .org 0x0000
-    
+
+    // Test de ADDI y SUBI
+    ADD X17, X17, #1 //ADDI
+    STUR X17, [X0, #148] // MEM :0x12
+    SUB X18, X18, #1 //SUBI
+    STUR X18, [X0, #152] // MEM :0X11
+
+    // Continuación del codigo anterior
     STUR X1, [X0, #0] // MEM 0:0x1
     STUR X2, [X0, #8] // MEM 1:0x2
     STUR X3, [X16, #0] // MEM 2:0x3
