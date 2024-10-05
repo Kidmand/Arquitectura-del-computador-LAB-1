@@ -17,7 +17,7 @@ module datapath #(parameter N = 64)
     logic PCSrc;
     logic [N-1:0] PCBranch_E, aluResult_E, writeData_E, writeData3;
     logic [N-1:0] signImm_D, readData1_D, readData2_D;
-    logic zero_E;
+    logic zero_E, negative_E, carry_E, overflow_E;
     logic [95:0] qIF_ID;
     logic [270:0] qID_EX;
     logic [202:0] qEX_MEM;
@@ -78,7 +78,11 @@ module datapath #(parameter N = 64)
                                         .PCBranch_E(PCBranch_E),
                                         .aluResult_E(aluResult_E),
                                         .writeData_E(writeData_E),
-                                        .zero_E(zero_E));
+                                        //.write_flags_E(AluControl[3]), //Las instrucciones ADDS, SUBS, ADIS, SUBIS son las únicas que en la ALUControl,
+                                        .zero_E(zero_E),             //tiene el bit más significativo en 1, osea ALUControl[3]
+                                        .negative_E(negative_E),
+                                        .carry_E(carry_E),
+                                        .overflow_E(overflow_E));
 
 
     flopr     #(203)    EX_MEM     (.clk(clk),
@@ -122,5 +126,15 @@ module datapath #(parameter N = 64)
                                         .DM_readData_W(qMEM_WB[68:5]),
                                         .memtoReg(qMEM_WB[133]),
                                         .writeData3_W(writeData3));
+
+    flopenr   #(4)      CPSR_flags (.clk(clk),
+                                    .reset(reset),
+                                    .enable(AluControl[3]), //Las instrucciones ADDS, SUBS, ADIS, SUBIS son las únicas que en la ALUControl,
+                                    .d({                    //tiene el bit más significativo en 1, osea ALUControl[3]
+                                        zero_E,
+                                        negative_E,
+                                        carry_E,
+                                        overflow_E
+                                    }));
 
 endmodule

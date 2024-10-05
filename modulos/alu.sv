@@ -2,14 +2,22 @@ module alu
     #(parameter int unsigned N = 64)
     (input logic [N-1:0] a, b,
      input logic [3:0] ALUControl,
-     input logic write_flags,  // Señal para habilitar la actualización de banderas
+     // input logic write_flags,  // FIXME: Esta señal medio al pedo, se puede calcular de AluControl
      output logic [N-1:0] result,
      output logic zero,
      output logic negative,
      output logic carry,
      output logic overflow );
 
+    //NOTE: Quizá también podemos declarar:
+    logic write_flags;
+    // Esta sería otra forma, quizá más eficiente porque nos estamos ahorrando el 
+    // tener que manejar todas las señales en el datapath.
+
+
     always_comb begin
+        // Asignar write_flags basado en ALUControl dentro del bloque always_comb
+        write_flags = ALUControl[3]; // Muy importante asignarle valor acá, ya que estamos en combinacional.
         // Inicializa las señales
         result = '0;
         zero = 1'b0;
