@@ -14,8 +14,8 @@ module alu
         result = '0;
         zero = 1'b0;
         negative = 1'b0;
-        carry = 1'b0;  // Inicializa carry
-        overflow = 1'b0;  // Inicializa overflow
+        carry = 1'b0;
+        overflow = 1'b0;
 
         // Realiza la operación según ALUControl
         case (ALUControl)
@@ -27,12 +27,17 @@ module alu
                 overflow = (a[N-1] == b[N-1]) && (result[N-1] != a[N-1]); // Chequeo de overflow
             end
             4'b0110: begin
-                result = a - b; // Resta
-                carry = (a < b) ? 1'b1 : 1'b0; // Chequeo de borrow
-                overflow = (a[N-1] != b[N-1]) && (result[N-1] != a[N-1]); // Chequeo de overflow
+                // Resta utilizando complemento a dos
+                logic [N-1:0] complemento_b;    // Almacena el complemento a dos de b
+                complemento_b = ~b + 1'b1;      // Calcular complemento a dos de b
+                result = a + complemento_b;     // Resta como suma de complemento a dos
+
+                // Actualiza Carry y Overflow
+                carry = (result < a) ? 1'b1 : 1'b0; // Chequeo de carry
+                overflow = (a[N-1] != complemento_b[N-1]) && (result[N-1] != a[N-1]); // Chequeo de overflow
             end
-            4'b0111: result = b;       // Pass-through
-            default: result = '0;       // Default case
+            4'b0111: result = b;
+            default: result = '0;
         endcase
 
         // Bandera Zero
@@ -43,10 +48,10 @@ module alu
 
         // Actualiza las banderas solo si write_flags está habilitado
         if (!write_flags) begin
-            zero = 1'b0; // Mantiene el estado anterior si no se deben actualizar
-            negative = 1'b0; // Mantiene el estado anterior si no se deben actualizar
-            carry = 1'b0; // Mantiene el estado anterior si no se deben actualizar
-            overflow = 1'b0; // Mantiene el estado anterior si no se deben actualizar
+            zero = 1'b0;        // Mantiene el estado anterior si no se deben actualizar
+            negative = 1'b0;    // Mantiene el estado anterior si no se deben actualizar
+            carry = 1'b0;       // Mantiene el estado anterior si no se deben actualizar
+            overflow = 1'b0;    // Mantiene el estado anterior si no se deben actualizar
         end
     end
 
