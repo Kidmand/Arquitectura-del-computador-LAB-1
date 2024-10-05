@@ -24,7 +24,9 @@ module maindec(
 
     always_comb begin
         casez (Op)
-            // TYPE R
+            // TYPE R ADDS y SUBS
+            11'b101_0101_1000, //ADDS
+            11'b111_0101_1000, //SUBS
             11'b100_0101_1000,
             11'b110_0101_1000,
             11'b100_0101_0000,
@@ -33,9 +35,12 @@ module maindec(
             11'b111_1100_0010: res = output_signals[1];
             // STUR
             11'b111_1100_0000: res = output_signals[2];
-            // CBZ
+            // CBZ y B.cond
+            11'b010_1010_0???, // B.cond
             11'b101_1010_0???: res = output_signals[3];
-            // TYPE I
+            // TYPE I ADDIS y SUBIS
+            11'b101_1000_100?, // ADDIS
+            11'b1111_000_100?, // SUBIS
             11'b100_1000_100?,
             11'b110_1000_100?:  res = output_signals[4];
 
