@@ -5,11 +5,11 @@
     ADD X17, X17, #1 //ADDI
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
-    STUR X17, [X0, #148] // MEM :0x12
+    STUR X17, [X0, #200] // MEM :0x12
     SUB X18, X18, #1 //SUBI
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
-    STUR X18, [X0, #152] // MEM :0X11
+    STUR X18, [X0, #208] // MEM :0X11
 
     // Continuación del codigo anterior
     STUR X1, [X0, #0] // MEM 0:0x1
