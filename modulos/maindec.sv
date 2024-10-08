@@ -38,12 +38,12 @@ module maindec(
             // CBZ y B.cond
             11'b010_1010_0???, // B.cond
             11'b101_1010_0???: res = output_signals[3];
-            // TYPE I ADDIS y SUBIS
+            // TYPE I
             11'b101_1000_100?, // ADDIS
             11'b1111_000_100?, // SUBIS
-            11'b100_1000_100?,
-            11'b110_1000_100?:  res = output_signals[4];
-
+            11'b100_1000_100?, // ADDI
+            11'b110_1000_100?: // SUBI
+                     res = output_signals[4];
             default: res = output_signals[5];
         endcase
     end
