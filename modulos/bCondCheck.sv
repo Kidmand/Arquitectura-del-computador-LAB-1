@@ -3,7 +3,7 @@ module bCondCheck (
     input logic negative,
     input logic carry,
     input logic overflow,
-    input logic [N-1:0] IM_readData,
+    input logic [4:0] IM_readData,
     output logic condBranch
 );
 

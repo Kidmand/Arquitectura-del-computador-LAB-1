@@ -29,12 +29,16 @@ module alu
         case (ALUControl)
             4'b0000: result = a & b;  // AND
             4'b0001: result = a | b;  // OR
-            4'b0010: begin
+            4'b?010: begin
                 result = a + b; // Suma
-                carry = (result < a) ? 1'b1 : 1'b0; // Chequeo de carry
-                overflow = (a[N-1] == b[N-1]) && (result[N-1] != a[N-1]); // Chequeo de overflow
+                if (a[N-1] === b[N-1]) begin //FIXME: carry
+                    carry = 1;
+                end else if (a[N-1] ) begin
+                    
+                end(result < a) ? 1'b1 : 1'b0; // Chequeo de carry
+                overflow = (a[N-1] == b[N-1]) && (result[N-1] != a[N-1]); // Chequeo de overflow :FIXME:
             end
-            4'b0110: begin
+            4'b?110: begin //FIXME: contemplar más casos de la resta.
                 // Resta utilizando complemento a dos
                 logic [N-1:0] complemento_b;    // Almacena el complemento a dos de b
                 complemento_b = ~b + 1'b1;      // Calcular complemento a dos de b

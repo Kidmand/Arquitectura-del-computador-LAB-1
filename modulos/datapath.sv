@@ -129,7 +129,7 @@ module datapath #(parameter N = 64)
 
     flopenr   #(4)      CPSR_flags (.clk(clk),
                                     .reset(reset),
-                                    .enable(AluControl[3]), //Las instrucciones ADDS, SUBS, ADIS, SUBIS son las únicas que en la ALUControl,
+                                    .enable(AluControl[3]), // FIXME: preguntar sobre estas señales.  //Las instrucciones ADDS, SUBS, ADIS, SUBIS son las únicas que en la ALUControl,
                                     .d({                    //tiene el bit más significativo en 1, osea ALUControl[3]
                                         zero_E,
                                         negative_E,
