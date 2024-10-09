@@ -13,7 +13,10 @@ module alu
     assign result = aux_result[N-1:0];
 
     always_comb begin
-        // Si es instuccion que setea flags, escribiremos las flags.
+        // Inicialización de aux_result en cada ciclo.
+        aux_result = '0;
+        // Si es instuccion que setea flags, escribiremos las flags. 
+        // Ya que las itruciones que setean flags, (ADDIS, SUBI, ADDS, SUBS) tienen el MBS en 1.
         write_flags = ALUControl[3];
         // Setamos valores por defecto (por las dudas)
         zero = 1'b0;
