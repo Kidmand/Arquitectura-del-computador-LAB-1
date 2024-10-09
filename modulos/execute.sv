@@ -7,7 +7,7 @@ module execute
      output logic zero_E, negative_E, carry_E, overflow_E);
 
     logic [N-1:0] output_sl2, output_mux;
-
+    logic write_flags_E;
     adder #(N) Add(.a(PC_E),
                     .b(output_sl2),
                     .y(PCBranch_E));
@@ -23,7 +23,7 @@ module execute
     alu #(N) ALU(.a(readData1_E),
                    .b(output_mux),
                    .ALUControl(AluControl),
-                   .write_flags(write_flags_E), // FIXME: Esta señal medio al pedo, ya que se puede calcular directamente de AluControl
+                   .write_flags(write_flags_E),
                    .result(aluResult_E),
                    .zero(zero_E),
                    .negative(negative_E),
