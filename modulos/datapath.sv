@@ -10,6 +10,7 @@ module datapath #(parameter N = 64)
                     input logic memWrite,
                     input logic regWrite,
                     input logic memtoReg,
+                    input logic condBranch,
                     input logic [31:0] IM_readData,
                     input logic [N-1:0] DM_readData,
                     output logic [N-1:0] IM_addr, DM_addr, DM_writeData,
@@ -17,7 +18,7 @@ module datapath #(parameter N = 64)
     logic PCSrc;
     logic [N-1:0] PCBranch_E, aluResult_E, writeData_E, writeData3;
     logic [N-1:0] signImm_D, readData1_D, readData2_D;
-    logic zero_E, negative_E, carry_E, overflow_E;
+    logic zero_E, negative_E, carry_E, overflow_E, zero;
     logic [95:0] qIF_ID;
     logic [270:0] qID_EX;
     logic [202:0] qEX_MEM;
@@ -50,9 +51,9 @@ module datapath #(parameter N = 64)
                                         .wa3_D(qMEM_WB[4:0]));
 
 
-    flopr     #(271)    ID_EX     (.clk(clk),
+    flopr     #(272)    ID_EX     (.clk(clk),
                                         .reset(reset),
-                                        .d({
+                                        .d({condBranch,
                                             AluSrc,
                                             AluControl,
                                             Branch,
@@ -82,12 +83,17 @@ module datapath #(parameter N = 64)
                                         .zero_E(zero_E),             //tiene el bit más significativo en 1, osea ALUControl[3]
                                         .negative_E(negative_E),
                                         .carry_E(carry_E),
-                                        .overflow_E(overflow_E));
+                                        .overflow_E(overflow_E),
+                                        .zero(zero));
 
 
-    flopr     #(203)    EX_MEM     (.clk(clk),
+    flopr     #(208)    EX_MEM          (.clk(clk),
                                         .reset(reset),
-                                        .d({
+                                        .d({qID_EX[271],//condBranch
+                                            zero,
+                                            negative_E,
+                                            carry_E,
+                                            overflow_E,
                                             qID_EX[265:261],
                                             PCBranch_E,
                                             zero_E,
@@ -100,7 +106,13 @@ module datapath #(parameter N = 64)
 
     memory                MEMORY    (.Branch_M(qEX_MEM[202]),
                                      .zero_M(qEX_MEM[133]),
-                                     .PCSrc_M(PCSrc));
+                                     .PCSrc_M(PCSrc),
+                                     .zero(qEX_MEM[206]),
+                                     .negative(qEX_MEM[205]),
+                                     .overflow(qEX_MEM[203]),
+                                     .carry(qEX_MEM[204]),
+                                     .bCondCheck(qEX_MEM[207]),
+                                     .Rt_B_cond(qEX_MEM[4:0]));
 
 
     // Salida de señales a Data Memory

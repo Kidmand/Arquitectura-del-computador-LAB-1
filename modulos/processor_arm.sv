@@ -12,6 +12,7 @@ module processor_arm #(parameter N = 64)
     logic [N-1:0] DM_readData, IM_address;  //DM_addr, DM_writeData
     logic DM_readEnable; //DM_writeEnable
     logic [10:0] instr;
+    logic condBranch;
 
     controller         c             (.instr(instr),
                                       .AluControl(AluControl),
@@ -21,7 +22,8 @@ module processor_arm #(parameter N = 64)
                                       .Branch(Branch),
                                       .memtoReg(memtoReg),
                                       .memRead(memRead),
-                                      .memWrite(memWrite));
+                                      .memWrite(memWrite),
+                                      .condBranch(condBranch));
 
 
     datapath #(64) dp         (.reset(reset),
@@ -40,7 +42,8 @@ module processor_arm #(parameter N = 64)
                                     .DM_addr(DM_addr),
                                     .DM_writeData(DM_writeData),
                                     .DM_writeEnable(DM_writeEnable),
-                                    .DM_readEnable(DM_readEnable));
+                                    .DM_readEnable(DM_readEnable),
+                                    .condBranch(condBranch));
 
 
     imem                 instrMem (.addr(IM_address[11:2]),
