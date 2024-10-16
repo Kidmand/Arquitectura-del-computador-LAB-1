@@ -10,7 +10,7 @@ module alu
      output logic write_flags);
 
     logic [N:0] aux_result; // Tiene un bit de mas para detectar al carry
-    assign result = aux_result[N-1:0];
+    //assign result = aux_result[N-1:0];
 
     always_comb begin
         // Inicialización de aux_result en cada ciclo.
@@ -20,6 +20,7 @@ module alu
         write_flags = ALUControl[3];
         // Setamos valores por defecto (por las dudas)
         zero = 1'b0;
+        zero_flag = 1'b0;
         negative = 1'b0;
         carry = 1'b0;
         overflow = 1'b0;
@@ -48,7 +49,7 @@ module alu
             end
             default: result = '0;
         endcase
-        if (write_flags) begin // Si seta flags las setamos
+        if (write_flags === 1) begin // Si seta flags las setamos
             // Bandera de carry
             carry = (aux_result[N] === '1);
             // Bandera Zero
@@ -58,6 +59,7 @@ module alu
         end
         // Check si es 0
         zero = (aux_result === '0) ? 1'b1 : 1'b0;
+        result = aux_result[N-1:0];
     end
 
 endmodule
