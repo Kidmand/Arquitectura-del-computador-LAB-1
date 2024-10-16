@@ -20,8 +20,8 @@ module datapath #(parameter N = 64)
     logic [N-1:0] signImm_D, readData1_D, readData2_D;
     logic zero_E, zero_flag_E, negative_E, carry_E, overflow_E;
     logic [95:0] qIF_ID;
-    logic [270:0] qID_EX;
-    logic [202:0] qEX_MEM;
+    logic [271:0] qID_EX;
+    logic [207:0] qEX_MEM;
     logic [134:0] qMEM_WB;
 
     fetch     #(64)     FETCH     (.PCSrc_F(PCSrc),
