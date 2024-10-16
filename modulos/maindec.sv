@@ -1,6 +1,6 @@
 module maindec(
     input logic [10:0] Op,
-    output logic Reg2Loc, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, CondCheck,
+    output logic Reg2Loc, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, condBranch,
     output logic [1:0] ALUOp);
 
     logic [9:0] output_signals [0:6] = '{
@@ -21,7 +21,7 @@ module maindec(
             MemRead,
             MemWrite,
             Branch,
-            CondCheck,
+            condBranch,
             ALUOp } = res;
 
     always_comb begin
