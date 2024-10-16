@@ -4,7 +4,7 @@ module execute
      input logic [3:0] AluControl,
      input logic [N-1:0] PC_E, signImm_E, readData1_E, readData2_E,
      output logic [N-1:0] PCBranch_E, aluResult_E, writeData_E,
-     output logic zero_E, negative_E, carry_E, overflow_E);
+     output logic zero_E, zero_flag_E, negative_E, carry_E, overflow_E);
 
     logic [N-1:0] output_sl2, output_mux;
     logic write_flags_E;
@@ -26,6 +26,7 @@ module execute
                    .write_flags(write_flags_E),
                    .result(aluResult_E),
                    .zero(zero_E),
+                   .zero_flag(zero_flag_E),
                    .negative(negative_E),
                    .carry(carry_E),
                    .overflow(overflow_E));
@@ -34,7 +35,7 @@ module execute
                                     .reset(reset),
                                     .enable(write_flags_E),
                                     .d({
-                                        zero_E,
+                                        zero_flag_E,
                                         negative_E,
                                         carry_E,
                                         overflow_E

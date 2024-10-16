@@ -3,7 +3,7 @@
 module controller(input logic [10:0] instr,
                         output logic [3:0] AluControl,
                         output logic reg2loc, regWrite, AluSrc, Branch,
-                                            memtoReg, memRead, memWrite);
+                                    CondCheck, memtoReg, memRead, memWrite);
 
     logic [1:0] AluOp_s;
 
@@ -15,6 +15,7 @@ module controller(input logic [10:0] instr,
                             .MemRead(memRead),
                             .MemWrite(memWrite),
                             .Branch(Branch),
+                            .CondCheck(CondCheck),
                             .ALUOp(AluOp_s));
 
 

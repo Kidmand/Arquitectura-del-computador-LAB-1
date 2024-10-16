@@ -1,6 +1,6 @@
 module maindec(
     input logic [10:0] Op,
-    output logic Reg2Loc, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch,
+    output logic Reg2Loc, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, CondCheck,
     output logic [1:0] ALUOp);
 
     logic [9:0] output_signals [0:6] = '{
@@ -21,7 +21,7 @@ module maindec(
             MemRead,
             MemWrite,
             Branch,
-            bCondCheck,
+            CondCheck,
             ALUOp } = res;
 
     always_comb begin
@@ -44,7 +44,7 @@ module maindec(
             11'b1111_000_100?, // SUBIS
             11'b100_1000_100?, // ADDI
             11'b110_1000_100?: // SUBI
-                     res = output_signals[4];
+                    res = output_signals[4];
             // B.cond
             11'b010_1010_0???: res = output_signals[5];
             default: res = output_signals[6];

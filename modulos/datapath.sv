@@ -18,7 +18,7 @@ module datapath #(parameter N = 64)
     logic PCSrc;
     logic [N-1:0] PCBranch_E, aluResult_E, writeData_E, writeData3;
     logic [N-1:0] signImm_D, readData1_D, readData2_D;
-    logic zero_E, negative_E, carry_E, overflow_E, zero;
+    logic zero_E, zero_flag_E, negative_E, carry_E, overflow_E;
     logic [95:0] qIF_ID;
     logic [270:0] qID_EX;
     logic [202:0] qEX_MEM;
@@ -79,18 +79,17 @@ module datapath #(parameter N = 64)
                                         .PCBranch_E(PCBranch_E),
                                         .aluResult_E(aluResult_E),
                                         .writeData_E(writeData_E),
-                                        //.write_flags_E(AluControl[3]), //Las instrucciones ADDS, SUBS, ADIS, SUBIS son las únicas que en la ALUControl,
-                                        .zero_E(zero_E),             //tiene el bit más significativo en 1, osea ALUControl[3]
+                                        .zero_E(zero_E),
+                                        .zero_flag_E(zero_flag_E),
                                         .negative_E(negative_E),
                                         .carry_E(carry_E),
-                                        .overflow_E(overflow_E),
-                                        .zero(zero));
+                                        .overflow_E(overflow_E));
 
 
     flopr     #(208)    EX_MEM          (.clk(clk),
                                         .reset(reset),
-                                        .d({qID_EX[271],//condBranch
-                                            zero,
+                                        .d({qID_EX[271], //condBranch
+                                            zero_flag_E,
                                             negative_E,
                                             carry_E,
                                             overflow_E,
@@ -99,20 +98,20 @@ module datapath #(parameter N = 64)
                                             zero_E,
                                             aluResult_E,
                                             writeData_E,
-                                            qID_EX[4:0]
+                                            qID_EX[4:0] // Rt
                                         }),
                                         .q(qEX_MEM));
 
 
-    memory                MEMORY    (.Branch_M(qEX_MEM[202]),
-                                     .zero_M(qEX_MEM[133]),
-                                     .PCSrc_M(PCSrc),
-                                     .zero(qEX_MEM[206]),
-                                     .negative(qEX_MEM[205]),
-                                     .overflow(qEX_MEM[203]),
-                                     .carry(qEX_MEM[204]),
-                                     .bCondCheck(qEX_MEM[207]),
-                                     .Rt_B_cond(qEX_MEM[4:0]));
+    memory                MEMORY   (.Branch_M(qEX_MEM[202]),
+                                    .zero_M(qEX_MEM[133]),
+                                    .PCSrc_M(PCSrc),
+                                    .overflow(qEX_MEM[203]),
+                                    .carry(qEX_MEM[204]),
+                                    .negative(qEX_MEM[205]),
+                                    .zero_flag(qEX_MEM[206]),
+                                    .bCondCheck(qEX_MEM[207]),
+                                    .Rt_B_cond(qEX_MEM[4:0]));
 
 
     // Salida de señales a Data Memory

@@ -7,7 +7,7 @@ module flopenr #(parameter int unsigned N = 64)
 
     always_ff @(posedge clk, posedge reset) begin
         if (reset)
-            q <= '0;               // Reiniciar el registro a 0
+            q <= '0;              // Reiniciar el registro a 0
         else if (enable)
             q <= d;               // Actualizar solo si enable es alto
     end
