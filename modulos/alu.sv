@@ -25,7 +25,7 @@ module alu
         carry = 1'b0;
         overflow = 1'b0;
         // Realiza la operación según ALUControl
-        case (ALUControl)
+        casez (ALUControl)
             4'b0000: aux_result = a & b;  // AND
             4'b0001: aux_result = a | b;  // OR
             4'b0111: aux_result = b;      // PASS b
