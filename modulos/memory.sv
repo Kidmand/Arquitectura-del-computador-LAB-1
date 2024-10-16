@@ -5,6 +5,7 @@ module memory     (input logic Branch_M, zero_M, zero_flag, negative, overflow, 
                     output logic PCSrc_M);
 
     logic B_cond_is;
+    logic PCSrc_M_aux_;
 
     bCondCheck B_cond_check(
         .zero(zero_flag),
@@ -16,7 +17,8 @@ module memory     (input logic Branch_M, zero_M, zero_flag, negative, overflow, 
         .B_cond_is(B_cond_is)
     );
 
-    mux2    MUX2 (.d0(Branch_M & zero_M), .d1(B_cond_is), .s(bCondCheck), .y(PCSrc_M));
+    assign PCSrc_M_aux_ = Branch_M && zero_M;
+    mux2    MUX2 (.d0(PCSrc_M_aux_), .d1(B_cond_is), .s(bCondCheck), .y(PCSrc_M));
 
     //assign PCSrc_M = Branch_M & zero_M;
 
