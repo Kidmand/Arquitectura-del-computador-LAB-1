@@ -18,8 +18,6 @@ module memory     (input logic Branch_M, zero_M, zero_flag, negative, overflow, 
     );
 
     assign PCSrc_M_aux_ = Branch_M && zero_M;
-    mux2    MUX2 (.d0(PCSrc_M_aux_), .d1(B_cond_is), .s(bCondCheck), .y(PCSrc_M));
-
-    //assign PCSrc_M = Branch_M & zero_M;
+    mux2 #(1) MUX2 (.d0(PCSrc_M_aux_), .d1(B_cond_is), .s(bCondCheck), .y(PCSrc_M));
 
 endmodule
