@@ -7,7 +7,9 @@ module execute
      output logic zero_E, zero_flag_E, negative_E, carry_E, overflow_E);
 
     logic [N-1:0] output_sl2, output_mux;
-    logic write_flags_E;
+    logic write_flags_ALU;
+    logic zero_ALU, zero_flag_ALU, negative_ALU, carry_ALU, overflow_ALU;
+
     adder #(N) Add(.a(PC_E),
                     .b(output_sl2),
                     .y(PCBranch_E));
@@ -23,18 +25,24 @@ module execute
     alu #(N) ALU(.a(readData1_E),
                    .b(output_mux),
                    .ALUControl(AluControl),
-                   .write_flags(write_flags_E),
                    .result(aluResult_E),
-                   .zero(zero_E),
-                   .zero_flag(zero_flag_E),
-                   .negative(negative_E),
-                   .carry(carry_E),
-                   .overflow(overflow_E));
+                   .write_flags(write_flags_ALU),
+                   .zero(zero_ALU),
+                   .zero_flag(zero_flag_Azero_ALU),
+                   .negative(negative_Azero_ALU),
+                   .carry(carry_Azero_ALU),
+                   .overflow(overflow_Azero_ALU));
 
     flopenr   #(4)      CPSR_flags (.clk(clk),
                                     .reset(reset),
-                                    .enable(write_flags_E),
+                                    .enable(write_flags_ALU),
                                     .d({
+                                        zero_flag_ALU,
+                                        negative_ALU,
+                                        carry_ALU,
+                                        overflow_ALU
+                                    }),
+                                    .q({
                                         zero_flag_E,
                                         negative_E,
                                         carry_E,
