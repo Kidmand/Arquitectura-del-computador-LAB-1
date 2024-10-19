@@ -37,3 +37,7 @@ db/
 _output_files/
 simulation/modelsim/*
 !simulation/modelsim/wave_**.do
+armv8_createAssembly/main.elf
+armv8_createAssembly/main.list
+armv8_createAssembly/main.o
+armv8_createAssembly/memory_map.txt
