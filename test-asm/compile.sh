@@ -41,4 +41,12 @@ fi
 
 echo "..............................................."
 
+if [ "$3" == "-memdump" ]; then 
+    ./get_memdump.sh
+else if [ "$2" == "-memdump" ]; then
+        clear
+        ./get_memdump.sh
+     fi 
+fi
+
 ./clean.sh
