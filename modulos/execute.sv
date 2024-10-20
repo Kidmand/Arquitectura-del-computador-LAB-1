@@ -1,6 +1,8 @@
 module execute
     #(parameter int unsigned N = 64)
-    (input logic AluSrc,
+    (
+     input logic reset, clk,
+     input logic AluSrc,
      input logic [3:0] AluControl,
      input logic [N-1:0] PC_E, signImm_E, readData1_E, readData2_E,
      output logic [N-1:0] PCBranch_E, aluResult_E, writeData_E,
@@ -8,7 +10,7 @@ module execute
 
     logic [N-1:0] output_sl2, output_mux;
     logic write_flags_ALU;
-    logic zero_ALU, zero_flag_ALU, negative_ALU, carry_ALU, overflow_ALU;
+    logic zero_flag_ALU, negative_ALU, carry_ALU, overflow_ALU;
 
     adder #(N) Add(.a(PC_E),
                     .b(output_sl2),
@@ -27,11 +29,11 @@ module execute
                    .ALUControl(AluControl),
                    .result(aluResult_E),
                    .write_flags(write_flags_ALU),
-                   .zero(zero_ALU),
-                   .zero_flag(zero_flag_Azero_ALU),
-                   .negative(negative_Azero_ALU),
-                   .carry(carry_Azero_ALU),
-                   .overflow(overflow_Azero_ALU));
+                   .zero(zero_E),
+                   .zero_flag(zero_flag_ALU),
+                   .negative(negative_ALU),
+                   .carry(carry_ALU),
+                   .overflow(overflow_ALU));
 
     flopenr   #(4)      CPSR_flags (.clk(clk),
                                     .reset(reset),

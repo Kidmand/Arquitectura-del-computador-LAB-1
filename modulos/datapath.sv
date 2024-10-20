@@ -70,20 +70,22 @@ module datapath #(parameter N = 64)
                                         .q(qID_EX));
 
 
-    execute     #(64)     EXECUTE     (.AluSrc(qID_EX[270]),
-                                        .AluControl(qID_EX[269:266]),
-                                        .PC_E(qID_EX[260:197]),
-                                        .signImm_E(qID_EX[196:133]),
-                                        .readData1_E(qID_EX[132:69]),
-                                        .readData2_E(qID_EX[68:5]),
-                                        .PCBranch_E(PCBranch_E),
-                                        .aluResult_E(aluResult_E),
-                                        .writeData_E(writeData_E),
-                                        .zero_E(zero_E),
-                                        .zero_flag_E(zero_flag_E),
-                                        .negative_E(negative_E),
-                                        .carry_E(carry_E),
-                                        .overflow_E(overflow_E));
+    execute     #(64)     EXECUTE     ( .clk(clk),
+                                        .reset(reset),
+                                       .AluSrc(qID_EX[270]),
+                                       .AluControl(qID_EX[269:266]),
+                                       .PC_E(qID_EX[260:197]),
+                                       .signImm_E(qID_EX[196:133]),
+                                       .readData1_E(qID_EX[132:69]),
+                                       .readData2_E(qID_EX[68:5]),
+                                       .PCBranch_E(PCBranch_E),
+                                       .aluResult_E(aluResult_E),
+                                       .writeData_E(writeData_E),
+                                       .zero_E(zero_E),
+                                       .zero_flag_E(zero_flag_E),
+                                       .negative_E(negative_E),
+                                       .carry_E(carry_E),
+                                       .overflow_E(overflow_E));
 
 
     flopr     #(208)    EX_MEM          (.clk(clk),
