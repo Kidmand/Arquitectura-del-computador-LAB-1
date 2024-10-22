@@ -53,12 +53,12 @@ module alu
             // Bandera de carry
             carry = (aux_result[N] === '1);
             // Bandera Zero
-            zero_flag = (aux_result === '0) ? 1'b1 : 1'b0;
+            zero_flag = (aux_result[N-1:0] === '0) ? 1'b1 : 1'b0;
             // Bandera Negative (El bit más significativo (MSB) indica el signo)
             negative = aux_result[N-1];
         end
         // Check si es 0
-        zero = (aux_result === '0) ? 1'b1 : 1'b0;
+        zero = (aux_result[N-1:0] === '0) ? 1'b1 : 1'b0;
         result = aux_result[N-1:0];
     end
 
