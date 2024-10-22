@@ -47,11 +47,16 @@
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
             STUR X30, [X0, #0] // Si falla MEM: 0xFFFFFFFFFFFFFFFF
+            CBZ XZR, t1_EQ_end
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
         t1_EQ:
             ADD X30, X0, #1
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
             STUR X30, [X0, #0] // Si anda MEM: 0x1
+        t1_EQ_end:
     
     // --------------------------------------------------------
     // caso SUBS de no salto signed    B.EQ: Z=1 ID = 2
@@ -93,11 +98,16 @@
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
             STUR X30, [X0, #16] // Si falla MEM: 0xFFFFFFFFFFFFFFFD
+            CBZ XZR, t3_EQ_end
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
         t3_EQ:
             ADD X30, X0, #3
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
             STUR X30, [X0, #16] // Si anda MEM: 0x3
+        t3_EQ_end:
     // --------------------------------------------------------
     // caso SUBS de no salto unsigned  B.EQ: Z=1 ID = 4
             ADD X29, X1, X1
@@ -137,12 +147,17 @@
             ADD X30, X0, #-5
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #32] // Si falla MEM: 0xFFFFFFFFFFFFFFFF
+            STUR X30, [X0, #32] // Si falla MEM: 0xFFFFFFFFFFFFFFFB
+            CBZ XZR, t5_EQ_end
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
         t5_EQ:
             ADD X30, X0, #5
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #32] // Si anda MEM: 0x1
+            STUR X30, [X0, #32] // Si anda MEM: 0x5
+        t5_EQ_end:
     
     // --------------------------------------------------------
     // caso SUBIS de no salto signed    B.EQ: Z=1 ID = 6
@@ -158,7 +173,7 @@
             ADD X30, X0, #6
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #40] // Si anda MEM: 0x2
+            STUR X30, [X0, #40] // Si anda MEM: 0x6
             CBZ XZR, t6_EQ_end
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
@@ -167,7 +182,7 @@
             ADD X30, X0, #-6
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #40] // Si falla MEM: 0xFFFFFFFFFFFFFFFE
+            STUR X30, [X0, #40] // Si falla MEM: 0xFFFFFFFFFFFFFFFA
         t6_EQ_end:
     // --------------------------------------------------------
     // caso SUBIS de    salto unsigned  B.EQ: Z=1 ID = 7
@@ -183,12 +198,17 @@
             ADD X30, X0, #-7
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #48] // Si falla MEM: 0xFFFFFFFFFFFFFFFD
+            STUR X30, [X0, #48] // Si falla MEM: 0xFFFFFFFFFFFFFFF9
+            CBZ XZR, t7_EQ_end
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
         t7_EQ:
             ADD X30, X0, #7
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #48] // Si anda MEM: 0x3
+            STUR X30, [X0, #48] // Si anda MEM: 0x7
+        t7_EQ_end:
     // --------------------------------------------------------
     // caso SUBIS de no salto unsigned  B.EQ: Z=1 ID = 8
             ADD X29, X1, X1
@@ -203,7 +223,7 @@
             ADD X30, X0, #8
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #56] // Si anda MEM: 0x4
+            STUR X30, [X0, #56] // Si anda MEM: 0x8
             CBZ XZR, t8_EQ_end
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
@@ -212,10 +232,33 @@
             ADD X30, X0, #-8
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #56] // Si falla MEM: 0xFFFFFFFFFFFFFFFC
+            STUR X30, [X0, #56] // Si falla MEM: 0xFFFFFFFFFFFFFFF8
         t8_EQ_end:
 
     // caso ADDS de    salto signed   B.EQ: Z=1  ID = 9
+            SUB X29, X1, X2
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            ADDS X28, X29, X29 // => Z=1
+
+            B.EQ t9_EQ
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            ADD X30, X0, #-9
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #64] // Si falla MEM: 0xFFFFFFFFFFFFFFF7
+            CBZ XZR, t9_EQ_end
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+        t9_EQ:
+            ADD X30, X0, #9
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #64] // Si anda MEM: 0x9
+        t9_EQ_end:
     // caso ADDS de no salto signed   B.EQ: Z=1  ID = 10
     // caso ADDS de    salto unsigned B.EQ: Z=1  ID = 11
     // caso ADDS de no salto unsigned B.EQ: Z=1  ID = 12
