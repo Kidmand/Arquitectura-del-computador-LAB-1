@@ -55,7 +55,13 @@
     SUBS X28, X29, X29 // X28 = -1-(-1) = 0 => Z=1
 
     B.EQ signed_BEQ_pass
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR 
     CBZ XZR, instruction_fail
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR 
 signed_BEQ_pass:
 // --------------------------------------------------------
     // Test de B.EQ signado // caso de no salto
@@ -67,6 +73,9 @@ signed_BEQ_pass:
     SUBS X28, X29, X1  // X28 = -2-1 = -3 => Z=0
 
     B.EQ instruction_fail
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR 
 // --------------------------------------------------------
     // Test de B.EQ no signado // caso de salto
     ADD X30, X0, #3 // id = 3
@@ -77,7 +86,13 @@ signed_BEQ_pass:
     SUBS X28, X29, X29 // X28 = 3-3 = 0 => Z=1
 
     B.EQ unsigned_BEQ_pass
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR 
     CBZ XZR, instruction_fail
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR 
 unsigned_BEQ_pass:
 // --------------------------------------------------------
     // Test de B.EQ no signado // caso de no salto
@@ -89,6 +104,9 @@ unsigned_BEQ_pass:
     SUBS X28, X29, X1  // X28 = 2-1 = 1 => Z=0
 
     B.EQ instruction_fail
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR 
 
 // --------------------------------------------------------
     ADD X30, X0, #-1 // X30 = 0xFFFFFFFFFFFFFFFF si pasan todos los EQ
@@ -107,7 +125,13 @@ unsigned_BEQ_pass:
     SUBS X28, X29, X1 // X28 = -1-1 = -2 => Z=0
 
     B.NE signed_BNE_pass
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR 
     CBZ XZR, instruction_fail
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR 
 signed_BNE_pass:
 
 // --------------------------------------------------------
@@ -119,10 +143,14 @@ signed_BNE_pass:
 
 endloop:
     CBZ XZR, endloop
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
 
 instruction_fail: // ARGs: X30 = id de test
     // Se escribe en memoria el id del test que fallo
     // en la direccion 0X0
+        ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
     STUR X30, [X0, #0] // MEM[X0] = id
