@@ -18,20 +18,16 @@
     // [x] caso SUBS de    salto unsigned  B.EQ: Z=1 ID = 3
     // [x] caso SUBS de no salto unsigned  B.EQ: Z=1 ID = 4
 
-    // [] caso SUBIS de    salto signed   B.EQ: Z=1 ID = 5
-    // [] caso SUBIS de no salto signed   B.EQ: Z=1 ID = 6
-    // [] caso SUBIS de    salto unsigned B.EQ: Z=1 ID = 7
-    // [] caso SUBIS de no salto unsigned B.EQ: Z=1 ID = 8
+    // [x] caso SUBIS de    salto signed   B.EQ: Z=1 ID = 5
+    // [x] caso SUBIS de no salto signed   B.EQ: Z=1 ID = 6
+    // [x] caso SUBIS de    salto unsigned B.EQ: Z=1 ID = 7
+    // [x] caso SUBIS de no salto unsigned B.EQ: Z=1 ID = 8
 
-    // [] caso ADDS de    salto signed   B.EQ: Z=1  ID = 9
-    // [] caso ADDS de no salto signed   B.EQ: Z=1  ID = 10
-    // [] caso ADDS de    salto unsigned B.EQ: Z=1  ID = 11
-    // [] caso ADDS de no salto unsigned B.EQ: Z=1  ID = 12
+    // [x] caso ADDS de     salto 0        B.EQ: Z=1  ID = 9
+    // [x] caso ADDS de  no salto no 0     B.EQ: Z=1  ID = A
 
-    // [] caso ADDIS de    salto signed   B.EQ: Z=1 ID = 13
-    // [] caso ADDIS de no salto signed   B.EQ: Z=1 ID = 14
-    // [] caso ADDIS de    salto unsigned B.EQ: Z=1 ID = 15
-    // [] caso ADDIS de no salto unsigned B.EQ: Z=1 ID = 16
+    // [] caso ADDIS de    salto 0        B.EQ: Z=1 ID = B
+    // [] caso ADDIS de no salto no 0     B.EQ: Z=1 ID = C
     
     // caso SUBS de    salto signed    B.EQ: Z=1  ID = 1
             SUB X29, X1, X2
@@ -235,11 +231,10 @@
             STUR X30, [X0, #56] // Si falla MEM: 0xFFFFFFFFFFFFFFF8
         t8_EQ_end:
 
-    // caso ADDS de    salto signed   B.EQ: Z=1  ID = 9
-            SUB X29, X1, X2
+    // caso ADDS de     salto 0        B.EQ: Z=1  ID = 9
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            ADDS X28, X29, X29 // => Z=1
+            ADDS X28, XZR, XZR // => Z=1
 
             B.EQ t9_EQ
                 ADD XZR, XZR, XZR
@@ -259,74 +254,138 @@
                 ADD XZR, XZR, XZR
             STUR X30, [X0, #64] // Si anda MEM: 0x9
         t9_EQ_end:
-    // caso ADDS de no salto signed   B.EQ: Z=1  ID = 10
-    // caso ADDS de    salto unsigned B.EQ: Z=1  ID = 11
-    // caso ADDS de no salto unsigned B.EQ: Z=1  ID = 12
+    // caso ADDS de  no salto no 0     B.EQ: Z=1  ID = A
+            ADD X29, X1, X1
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            ADDS X28, X29, X29  // => Z=0
 
-    // caso ADDIS de    salto signed   B.EQ: Z=1 ID = 13
-    // caso ADDIS de no salto signed   B.EQ: Z=1 ID = 14
-    // caso ADDIS de    salto unsigned B.EQ: Z=1 ID = 15
-    // caso ADDIS de no salto unsigned B.EQ: Z=1 ID = 16
+            B.EQ tA_EQ
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            ADD X30, X0, #10
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #72] // Si anda MEM: 0xA
+            CBZ XZR, tA_EQ_end
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+        tA_EQ:
+            ADD X30, X0, #-10
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #72] // Si falla MEM: 0xFFFFFFFFFFFFFFF6
+        tA_EQ_end:
+
+    // caso ADDIS de    salto 0        B.EQ: Z=1 ID = B
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            ADDS X28, X0, #0 // => Z=1
+
+            B.EQ tB_EQ
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            ADD X30, X0, #-11
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #80] // Si falla MEM: 0xFFFFFFFFFFFFFFF5
+            CBZ XZR, tB_EQ_end
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+        tB_EQ:
+            ADD X30, X0, #11
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #80] // Si anda MEM: 0xB
+        tB_EQ_end:
+    // caso ADDIS de no salto no 0     B.EQ: Z=1 ID = C
+            ADD X29, X1, X1
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            ADDS X28, X29, #2  // => Z=0
+
+            B.EQ tC_EQ
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            ADD X30, X0, #12
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #88] // Si anda MEM: 0xC
+            CBZ XZR, tC_EQ_end
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+        tC_EQ:
+            ADD X30, X0, #-12
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #88] // Si falla MEM: 0xFFFFFFFFFFFFFFF4
+        tC_EQ_end:
 
 // ------------------------ NE ------------------------
-    // [x] caso SUBS de    salto signed    B.NE: Z=0  ID = 17
-    // [] caso SUBS de no salto signed    B.NE: Z=0  ID = 18
-    // [] caso SUBS de    salto unsigned  B.NE: Z=0  ID = 19
-    // [] caso SUBS de no salto unsigned  B.NE: Z=0  ID = 20
+    // caso SUBS de    salto signed    B.NE: Z=0  ID =
+    // caso SUBS de no salto signed    B.NE: Z=0  ID =
+    // caso SUBS de    salto unsigned  B.NE: Z=0  ID =
+    // caso SUBS de no salto unsigned  B.NE: Z=0  ID =
 
-    // [] caso SUBIS de    salto signed    B.NE: Z=0 ID = 21
-    // [] caso SUBIS de no salto signed    B.NE: Z=0 ID = 22
-    // [] caso SUBIS de    salto unsigned  B.NE: Z=0 ID = 23
-    // [] caso SUBIS de no salto unsigned  B.NE: Z=0 ID = 24
+    // caso SUBIS de    salto signed    B.NE: Z=0 ID =
+    // caso SUBIS de no salto signed    B.NE: Z=0 ID =
+    // caso SUBIS de    salto unsigned  B.NE: Z=0 ID =
+    // caso SUBIS de no salto unsigned  B.NE: Z=0 ID =
 
-    // [] caso ADDS de    salto signed    B.NE: Z=0  ID = 25
-    // [] caso ADDS de no salto signed    B.NE: Z=0  ID = 26
-    // [] caso ADDS de    salto unsigned  B.NE: Z=0  ID = 27
-    // [] caso ADDS de no salto unsigned  B.NE: Z=0  ID = 28
+    // caso ADDS de    salto signed    B.NE: Z=0  ID =
+    // caso ADDS de no salto signed    B.NE: Z=0  ID =
+    // caso ADDS de    salto unsigned  B.NE: Z=0  ID =
+    // caso ADDS de no salto unsigned  B.NE: Z=0  ID =
 
-    // [] caso ADDIS de    salto signed    B.NE: Z=0 ID = 29
-    // [] caso ADDIS de no salto signed    B.NE: Z=0 ID = 30
-    // [] caso ADDIS de    salto unsigned  B.NE: Z=0 ID = 31
-    // [] caso ADDIS de no salto unsigned  B.NE: Z=0 ID = 32
+    // caso ADDIS de    salto signed    B.NE: Z=0 ID =
+    // caso ADDIS de no salto signed    B.NE: Z=0 ID =
+    // caso ADDIS de    salto unsigned  B.NE: Z=0 ID =
+    // caso ADDIS de no salto unsigned  B.NE: Z=0 ID =
 
 // ------------------------ LO ------------------------
-    // [] caso SUBS de    salto unsigned  B.LO: C=1  ID = 33
-    // [] caso SUBS de no salto unsigned  B.LO: C=1  ID = 34
+    // caso SUBS de    salto unsigned  B.LO: C=1  ID =
+    // caso SUBS de no salto unsigned  B.LO: C=1  ID =
 
-    // [] caso SUBIS de    salto unsigned  B.LO: C=1 ID = 35
-    // [] caso SUBIS de no salto unsigned  B.LO: C=1 ID = 36
+    // caso SUBIS de    salto unsigned  B.LO: C=1 ID =
+    // caso SUBIS de no salto unsigned  B.LO: C=1 ID =
 
-    // [] caso ADDS de    salto unsigned  B.LO: C=1  ID = 37 
-    // [] caso ADDS de no salto unsigned  B.LO: C=1  ID = 38
+    // caso ADDS de    salto unsigned  B.LO: C=1  ID =
+    // caso ADDS de no salto unsigned  B.LO: C=1  ID =
 
-    // [] caso ADDIS de    salto unsigned  B.LO: C=1 ID = 39
-    // [] caso ADDIS de no salto unsigned  B.LO: C=1 ID = 40
+    // caso ADDIS de    salto unsigned  B.LO: C=1 ID =
+    // caso ADDIS de no salto unsigned  B.LO: C=1 ID =
 
 // ------------------------ HS ------------------------
-    // [] caso SUBS de    salto unsigned  B.HS: C=1  ID = 41
-    // [] caso SUBS de no salto unsigned  B.HS: C=1  ID = 42
+    // caso SUBS de    salto unsigned  B.HS: C=1  ID =
+    // caso SUBS de no salto unsigned  B.HS: C=1  ID =
 
-    // [] caso SUBIS de    salto unsigned  B.HS: C=1 ID = 43
-    // [] caso SUBIS de no salto unsigned  B.HS: C=1 ID = 44
+    // caso SUBIS de    salto unsigned  B.HS: C=1 ID =
+    // caso SUBIS de no salto unsigned  B.HS: C=1 ID =
 
-    // [] caso ADDS de    salto unsigned  B.HS: C=1  ID = 45
-    // [] caso ADDS de no salto unsigned  B.HS: C=1  ID = 46
+    // caso ADDS de    salto unsigned  B.HS: C=1  ID =
+    // caso ADDS de no salto unsigned  B.HS: C=1  ID =
 
-    // [] caso ADDIS de    salto unsigned  B.HS: C=1 ID = 47
-    // [] caso ADDIS de no salto unsigned  B.HS: C=1 ID = 48
+    // caso ADDIS de    salto unsigned  B.HS: C=1 ID =
+    // caso ADDIS de no salto unsigned  B.HS: C=1 ID =
 
 // ------------------------ MI ------------------------
-    // [] caso SUBS de    salto signed    B.MI: N=1  ID = 49
-    // [] caso SUBS de no salto signed    B.MI: N=1  ID = 50
+    // caso SUBS de    salto signed    B.MI: N=1  ID =
+    // caso SUBS de no salto signed    B.MI: N=1  ID =
 
-    // [] caso SUBIS de    salto signed    B.MI: N=1 ID = 51
-    // [] caso SUBIS de no salto signed    B.MI: N=1 ID = 52
+    // caso SUBIS de    salto signed    B.MI: N=1 ID =
+    // caso SUBIS de no salto signed    B.MI: N=1 ID =
 
-    // [] caso ADDS de    salto signed    B.MI: N=1  ID = 53
-    // [] caso ADDS de no salto signed    B.MI: N=1  ID = 54
+    // caso ADDS de    salto signed    B.MI: N=1  ID =
+    // caso ADDS de no salto signed    B.MI: N=1  ID =
 
-    // [] caso ADDIS de    salto signed    B.MI: N=1 ID = 55
-    // [] caso ADDIS de no salto signed    B.MI: N=1 ID = 56
+    // caso ADDIS de    salto signed    B.MI: N=1 ID =
+    // caso ADDIS de no salto signed    B.MI: N=1 ID =
 
 endloop:
     CBZ XZR, endloop
