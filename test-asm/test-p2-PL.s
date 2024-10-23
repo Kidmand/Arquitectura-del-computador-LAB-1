@@ -502,7 +502,7 @@
             SUB X30, X0, #19
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #142] // Si falla MEM: 0xFFFFFFFFFFFFFFED = -9
+            STUR X30, [X0, #144] // Si falla MEM: 0xFFFFFFFFFFFFFFED = -9
             CBZ XZR, pl_end_19
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
@@ -511,7 +511,7 @@
             ADD X30, X0, #19
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #142] // Si anda MEM: 0x13
+            STUR X30, [X0, #144] // Si anda MEM: 0x13
         pl_end_19:
 
 //-----------------------------------------------------------------------\\
@@ -525,7 +525,7 @@
             SUB X30, X0, #20
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #150] // Si falla MEM: 0xFFFFFFFFFFFFFFEC = -20
+            STUR X30, [X0, #152] // Si falla MEM: 0xFFFFFFFFFFFFFFEC = -20
             CBZ XZR, pl_end_20
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
@@ -534,7 +534,7 @@
             ADD X30, X0, #20
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #150] // Si anda MEM: 0x14
+            STUR X30, [X0, #152] // Si anda MEM: 0x14
         pl_end_20:
         
 //-----------------------------------------------------------------------\\
