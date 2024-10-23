@@ -26,8 +26,8 @@
     // [x] caso ADDS de     salto 0        B.EQ: Z=1  ID = 9
     // [x] caso ADDS de  no salto no 0     B.EQ: Z=1  ID = A
 
-    // [] caso ADDIS de    salto 0        B.EQ: Z=1 ID = B
-    // [] caso ADDIS de no salto no 0     B.EQ: Z=1 ID = C
+    // [x] caso ADDIS de    salto 0        B.EQ: Z=1 ID = B
+    // [x] caso ADDIS de no salto no 0     B.EQ: Z=1 ID = C
     
     // caso SUBS de    salto signed    B.EQ: Z=1  ID = 1
             SUB X29, X1, X2
