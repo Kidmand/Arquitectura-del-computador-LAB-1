@@ -11,6 +11,8 @@ module signext (
              11'b010_1010_0???: y = {{45{a[23]}}, a[23:5]};         // B.cond
              11'b1001000100?: y = {{52'b0}, a[21:10]};              // I for ADDI
              11'b1101000100?: y = {{52'b0}, a[21:10]};              // I for SUBI
+             11'b1011000100?: y = {{52'b0}, a[21:10]};              // I for ADDIS
+             11'b1111000100?: y = {{52'b0}, a[21:10]};              // I for SUBIS
              // En cualquier otro caso:
              default: y = '0;
         endcase
