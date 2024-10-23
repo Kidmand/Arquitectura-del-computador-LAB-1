@@ -225,3 +225,27 @@
             STUR X30, [X0, #56] // Si falla MEM: 0xFFFFFFFFFFFFFFF8 = -8
         pl_end_8:
 //-----------------------------------------------------------------------\\
+
+// caso ADDS X28 > 0    B.PL: N=0 
+            SUB X29, XZR, X3
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            ADDS X28, X9, X4    //--------> [X28] = -3 + 4 = 1
+            B.PL pl_9
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            SUB X30, X0, #9
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #64] // Si falla MEM: 0xFFFFFFFFFFFFFFF7 = -9
+            CBZ XZR, pl_end_9
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+        pl_9:
+            ADD X30, X0, #9
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #64] // Si anda MEM: 0x9
+        pl_end_9:
