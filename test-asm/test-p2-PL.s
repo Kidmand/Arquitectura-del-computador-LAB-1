@@ -147,7 +147,7 @@
             SUB X28, XZR, X3
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            ADDS X28, X3, X2    //--------> [X28] = -3 + (-2) = -5
+            ADDS X28, X29, X28    //--------> [X28] = -3 + (-2) = -5
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
             B.PL pl_6
@@ -198,13 +198,12 @@
 
 //-----------------------------------------------------------------------\\
 
-
 // caso ADDS X28 < 0    B.PL: N=0 
 
             SUB X29, XZR, X5
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            ADDS X28, X9, X3    //--------> [X28] = -5 + 3 = -2
+            ADDS X28, X29, X3    //--------> [X28] = -5 + 3 = -2
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
             B.PL pl_8
