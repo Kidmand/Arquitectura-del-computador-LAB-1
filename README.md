@@ -193,3 +193,17 @@ L2:
 finloop: 
     CBZ XZR, finloop
 ```
+
+### Ejercicio 2
+
+<!--
+● Describir brevemente qué modificaciones se introdujeron (en qué módulos y con qué
+  finalidad). Mostrar el diagrama del nuevo microprocesador, indicando las señales y
+  módulos agregados.
+● Escribir una sección de código assembler, donde se pruebe el funcionamiento de las
+  nuevas instrucciones y se verifique que las que ya estaban implementadas
+  continúen funcionando correctamente. Los resultados obtenidos al ejecutar cada una
+  de las instrucciones deben guardarse en la memoria de datos. Mostrar el programa
+  en assembler LEGv8 modificado que se utilizó para verificar el comportamiento del
+  procesador y el contenido de memoria al finalizar su ejecución.
+-->
