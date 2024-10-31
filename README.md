@@ -12,7 +12,13 @@ Directorios:
 
 ## Informe
 
-### Ejericio 1
+Integrantes:
+
+- Ramiro Lugo Viola
+- Matías Viola
+- Daián Giménez
+
+### Ejercicio 1
 
 <!--
 ● Describir brevemente qué modificaciones se introdujeron (en qué entidades y con
