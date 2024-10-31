@@ -7,7 +7,7 @@ Debe realizarse un fork de este repositorio y el nombre debe corresponderse al a
 
 Directorios:
 
-- modulos: Deben estar TODOS los módulos implementados (no crear otros directorios con módulos)
+- módulos: Deben estar TODOS los módulos implementados (no crear otros directorios con módulos)
 - test-benchs: Por cada módulo debe existir al menos un test-bench. El archivo debe llamarse con el nombre del módulo + "\_tb".
 
 ## Informe
@@ -20,7 +20,7 @@ qué finalidad). Mostrar el diagrama del nuevo microprocesador, indicando las
 señales y entidades agregadas (de ser necesario).
 -->
 
-Para desarollar las instrucciones `ADDI` y `SUBI` se modificaron los modulos:
+Para desarrollar las instrucciones `ADDI` y `SUBI` se modificaron los módulos:
 
 #### **maindec.sv**
 
@@ -48,7 +48,7 @@ Para desarollar las instrucciones `ADDI` y `SUBI` se modificaron los modulos:
     endcase
 ```
 
-> Se agrego que segun el opcode de la instruccion se seleccione la señal de control correspondiente.
+> Se agrego que según el opcode de la instrucción se seleccione la señal de control correspondiente.
 
 #### **aludec.sv**
 
@@ -59,7 +59,7 @@ Para desarollar las instrucciones `ADDI` y `SUBI` se modificaron los modulos:
     ...
 ```
 
-> Se asignaron las nuevas señales de alucontrol para las instrucciones ADDI y SUBI.
+> Se asignaron las nuevas señales de `alucontrol` para las instrucciones `ADDI` y `SUBI`.
 
 #### **signext.sv**
 
@@ -72,7 +72,7 @@ Para desarollar las instrucciones `ADDI` y `SUBI` se modificaron los modulos:
     endcase
 ```
 
-> Se modificó el signext pueda extender los valores de las instrucciones `ADDI` y `SUBI`.
+> Se modificó el `signext` pueda extender los valores de las instrucciones `ADDI` y `SUBI`.
 
 #### **imem.sv**
 
@@ -80,7 +80,7 @@ Para desarollar las instrucciones `ADDI` y `SUBI` se modificaron los modulos:
     input logic [9:0] addr
 ```
 
-> Se modifico el tamaño de la direccion de memoria para que entre el nuevo código.
+> Se modifico el tamaño de la dirección de memoria para que entre el nuevo código.
 
 ```sv
     logic [N-1:0] ROM [0:1023] = '{default: 32'b0};
