@@ -32,8 +32,8 @@ module alu
             4'b?010: begin // SUMA
                 aux_result = a + b;
                 if (write_flags === '1) begin // Si seta flags, setamos si hay overflow.
-                    overflow = (((a >= 0) && (b >= 0) && (aux_result < 0)) ||
-                                ((a < 0)  && (b < 0) && (aux_result >= 0)));
+                    overflow = (((~a[N-1]) && (~b[N-1]) && (aux_result[N-1])) ||
+                                ((a[N-1])  && (b[N-1]) && (~aux_result[N-1])));
                 end
             end
             4'b?110: begin // RESTA
@@ -43,8 +43,8 @@ module alu
                 aux_result = a + complemento_b;     // Resta como suma de complemento a dos
 
                 if (write_flags === '1) begin // Si seta flags, setamos si hay overflow.
-                    overflow = (((a >= 0) && (b < 0) && (aux_result < 0)) ||
-                                ((a < 0) && (b >= 0) && (aux_result >= 0)));
+                    overflow = (((~a[N-1]) && (b[N-1]) && (aux_result[N-1])) ||
+                                ((a[N-1]) && (~b[N-1]) && (~aux_result[N-1])));
                 end
             end
             default: result = '0;
