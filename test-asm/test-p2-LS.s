@@ -36,7 +36,8 @@
             STUR X30, [X0, #0] // Si anda MEM: 0x1
         ls_end_1:
 
-//-----------------------------------------------------------------------\\    
+//-----------------------------------------------------------------------\\
+
 
 // caso SUBS X28 > 0    B.LS = ~((zero === 0) && carry);
                 ADD XZR, XZR, XZR
@@ -49,7 +50,7 @@
             SUB X30, X0, #2
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #0] // Si falla MEM: 0xFFFFFFFFFFFFFFFE = -2
+            STUR X30, [X0, #8] // Si falla MEM: 0xFFFFFFFFFFFFFFFE = -2
             CBZ XZR, ls_end_1
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
@@ -58,7 +59,7 @@
             ADD X30, X0, #2
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-            STUR X30, [X0, #0] // Si anda MEM: 0x2
+            STUR X30, [X0, #8] // Si anda MEM: 0x2
         ls_end_2:
 
-//-----------------------------------------------------------------------\\  
+//-----------------------------------------------------------------------\\
