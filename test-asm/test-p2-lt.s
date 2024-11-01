@@ -21,7 +21,7 @@
     // Test de B.LT
     SUBS X28, X2, X3 // 2 < 3 (true)
 
-    B.GE t1_LT                
+    B.LT t1_LT                
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
@@ -39,7 +39,7 @@ t1_LT:
         ADD XZR, XZR, XZR
     ADDS X28, X29, X1       // -1 < 1 (true)
 
-    B.GE t2_LT                
+    B.LT t2_LT                
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
@@ -54,7 +54,7 @@ t2_LT:
     // Test de B.LT
     SUBS X28, X3, X2 // 3 < 2 (false)
 
-    B.GE t3_LT                
+    B.LT t3_LT                
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
@@ -77,7 +77,7 @@ t3_LT_end:
         ADD XZR, XZR, XZR
     ADDS X28, X1, X29       // 1 < -1 (false)
 
-    B.GE t4_LT                
+    B.LT t4_LT                
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
