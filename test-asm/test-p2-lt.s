@@ -140,7 +140,7 @@ t6_LT:
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
 t7_LT:
-    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFEF (si falla) else 0x0
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF9 (si falla) else 0x0
 t7_LT_end:
 // --------------------------------------------------------------------
     ADD x20, x20, #16 // i += 16
@@ -160,7 +160,7 @@ t7_LT_end:
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
 t8_LT:
-    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFEE (si falla) else 0x0
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFF8 (si falla) else 0x0
 t8_LT_end:
 // --------------------------------------------------------------------
     ADD x20, x20, #16 // i += 16
@@ -180,7 +180,7 @@ t8_LT_end:
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
 t9_LT:
-    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFED (si falla) else 0x0
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFF7 (si falla) else 0x0
 t9_LT_end:
 // --------------------------------------------------------------------
     ADD x20, x20, #16 // i += 16
@@ -200,7 +200,7 @@ t9_LT_end:
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
 t10_LT:
-    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFEC (si falla) else 0x0
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFF6 (si falla) else 0x0
 t10_LT_end:
 // --------------------------------------------------------------------
     ADD x20, x20, #16 // i += 16
@@ -211,7 +211,7 @@ t10_LT_end:
     SUB X29, X1, X2 // = -1
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
-    SUBS X28, X29, X1       // -1 < -1 (false)
+    SUBS X28, X29, X29      // -1 < -1 (false)
 
     B.LT t11_LT                
         ADD XZR, XZR, XZR
@@ -223,7 +223,7 @@ t10_LT_end:
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
 t11_LT:
-    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFEB (si falla) else 0x0
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFF5 (si falla) else 0x0
 t11_LT_end:
 // --------------------------------------------------------------------
     ADD x20, x20, #16 // i += 16
@@ -246,7 +246,7 @@ t11_LT_end:
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
 t12_LT:
-    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFEA (si falla) else 0x0
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFF4 (si falla) else 0x0
 t12_LT_end:
 // --------------------------------------------------------------------
 
