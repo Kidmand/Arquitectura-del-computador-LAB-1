@@ -1,7 +1,10 @@
 .text
 .org 0x0000
+// Probar con SUBS, ADDS, SUBIS, ADDIS
 
-my_number DCD 0x8000000000000000;
+    .data
+    .align 3              ; Alinear a 8 bytes
+max_value: .word 2147483647  ; 2^31 - 1
 //--------------NOTE:--------------\\   
     //5'b00101: B_cond_is = (negative === 0); //B.PL verifica que un número sea >= 0
     // registos reservados
@@ -12,10 +15,9 @@ my_number DCD 0x8000000000000000;
     // X1 = 1
     // X2 = 2
 
-// Probar con SUBS, ADDS, SUBIS, ADDIS
 
 // caso SUBS X28 > 0    B.VS: V=1   Números Negativos
-            LDUR X0, [num_value]  ; Cargar el valor de num_value en X0
+            LDUR X0, [0x1000]      ; Cargar el valor de max_value en X1
             SUB X29, XZR, X1
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
