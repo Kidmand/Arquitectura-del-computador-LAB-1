@@ -37,7 +37,7 @@ t1_LT:
     SUB X29, X1, X2 // = -1
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
-    ADDS X28, X29, X1       // -1 < 1 (true)
+    SUBS X28, X29, X1       // -1 < 1 (true)
 
     B.LT t2_LT                
         ADD XZR, XZR, XZR
@@ -75,7 +75,7 @@ t3_LT_end:
     SUB X29, X1, X2 // = -1
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
-    ADDS X28, X1, X29       // 1 < -1 (false)
+    SUBS X28, X1, X29       // 1 < -1 (false)
 
     B.LT t4_LT                
         ADD XZR, XZR, XZR
