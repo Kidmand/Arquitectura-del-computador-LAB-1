@@ -125,6 +125,90 @@ t6_GT:
     STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFFA (si falla) else 0x0
 t6_GT_end:
 // --------------------------------------------------------------------
+    ADD x20, x20, #16 // i += 16
+    ADD x21, x21, #1
+    SUB x22, x22, #1
+// 7 ------------------------------------------------------------------
+    // Test de B.GT
+    SUB X29, X1, X2 // = -1
+    SUB X28, X1, X3 // = -2
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    SUBS X28, X29, X28 // -1 > -2 (true)
+
+    B.GT t7_GT                
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF9 (si falla) else 0x0
+t7_GT:
+    STUR X21, [x20, #8]     // MEM: 0x7
+// --------------------------------------------------------------------
+    ADD x20, x20, #16 // i += 16
+    ADD x21, x21, #1
+    SUB x22, x22, #1
+// 8 ------------------------------------------------------------------
+    // Test de B.GT
+    SUB X29, X1, X2 // = -1
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    SUBS X28, X29, #-2 // -1 > -2 (true)
+
+    B.GT t8_GT                
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF8 (si falla) else 0x0
+t8_GT:
+    STUR X21, [x20, #8]     // MEM: 0x8
+// --------------------------------------------------------------------
+    ADD x20, x20, #16 // i += 16
+    ADD x21, x21, #1
+    SUB x22, x22, #1
+// 9 --------------------------------------------------------------------
+    // Test de B.GT
+    SUB X29, X1, X2 // = -1
+    SUB X28, X1, X3 // = -2
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    SUBS X28, X28, X29 // -2 > -1 (false)
+
+    B.GT t9_GT                
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    STUR X21, [x20, #8]     // MEM: 0x7
+    CBZ XZR, t9_GT_end
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+t9_GT:
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF7 (si falla) else 0x0
+t9_GT_end:
+// --------------------------------------------------------------------
+    ADD x20, x20, #16 // i += 16
+    ADD x21, x21, #1
+    SUB x22, x22, #1
+// 10 --------------------------------------------------------------------
+    // Test de B.GT
+    SUB X29, X1, X3 // = -2
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    SUBS X28, X29, #-1 // -2 > -1 (false)
+
+    B.GT t10_GT                
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    STUR X21, [x20, #8]     // MEM: 0x8
+    CBZ XZR, t10_GT_end
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+t10_GT:
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF6 (si falla) else 0x0
+t10_GT_end:
+// --------------------------------------------------------------------
 
 endloop:
     CBZ XZR, endloop
