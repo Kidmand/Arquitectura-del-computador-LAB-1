@@ -1,7 +1,7 @@
     .text
     .org 0x0000
 
-    // TEST de B.LE (<=)   (negative !== 0) && (negative !== overflow)
+    // TEST de B.LE (<=)   (zero !== 0) || (negative !== overflow)
 
     // registos reservados
     // X29 = auxiliar
@@ -13,7 +13,7 @@
     // X1 = 1
     // X2 = 2
     
-//B.GT (>)         (negative === 0) && (negative === overflow)
+//B.GT (>)
 
 // --------------------------------------------------------------------
     ADD x20, x0, x0 // Inicializa iterador de memoria
@@ -185,7 +185,7 @@ t9_LE:
     SUB x22, x22, #1
 // 10 --------------------------------------------------------------------
     // Test de B.LE
-    SUBS X28, x2, #2       // 2 < 2 (true)
+    SUBS X28, x2, #2       // 2 <= 2 (true)
 
     B.LE t10_LE                
         ADD XZR, XZR, XZR
@@ -203,7 +203,7 @@ t10_LE:
     SUB X29, X1, X2 // = -1
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
-    SUBS X28, X29, X29      // -1 < -1 (true)
+    SUBS X28, X29, X29      // -1 <= -1 (true)
 
     B.LE t11_LE                
         ADD XZR, XZR, XZR
@@ -221,7 +221,7 @@ t11_LE:
     SUB X29, X1, X2 // = -1
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
-    SUBS X28, X29, #-1      // -1 < -1 (true)
+    SUBS X28, X29, #-1      // -1 <= -1 (true)
 
     B.LE t12_LE                
         ADD XZR, XZR, XZR
