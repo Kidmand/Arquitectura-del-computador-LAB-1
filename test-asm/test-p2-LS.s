@@ -36,8 +36,7 @@
             STUR X30, [X0, #0] // Si anda MEM: 0x1
         ls_end_1:
 
-//-----------------------------------------------------------------------\\
-
+//-----------------------------------------------------------------------\\    
 
 // caso SUBS X28 > 0    B.LS = ~((zero === 0) && carry);
                 ADD XZR, XZR, XZR
@@ -62,4 +61,30 @@
             STUR X30, [X0, #8] // Si anda MEM: 0x2
         ls_end_2:
 
-//-----------------------------------------------------------------------\\
+//-----------------------------------------------------------------------\\  
+
+// caso SUBS X28 > 0    B.LS = ~((zero === 0) && carry);
+            SUB X29, XZR, X2
+            ADD XZR, XZR, XZR
+            ADD XZR, XZR, XZR
+            SUBS X28, X29, X3    //--------> [X28] = 4 - 3 = 1
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            B.LS ls_3
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            ADD X30, X0, #3
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #16] // Si anda MEM: 0x3
+            CBZ XZR, ls_end_3
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+        ls_3:
+            SUB X30, X0, #3
+                ADD XZR, XZR, XZR
+                ADD XZR, XZR, XZR
+            STUR X30, [X0, #16] // Si falla MEM: 0xFFFFFFFFFFFFFFFD = -3
+        ls_end_3:
