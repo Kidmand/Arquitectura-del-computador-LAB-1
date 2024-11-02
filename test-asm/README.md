@@ -25,3 +25,13 @@ Con `get_memdump.sh` se obtiene el contenido de la memoria de datos (mem.dump). 
     # -- O de esta forma --
     ./compile.sh ./test-p1-1.s -i -memdump
 ```
+
+## Una forma más rápida es usando el script `run.sh`
+
+Este script compila el código fuente y ejecuta el simulador. Por ejemplo:
+
+```bash
+    ./run.sh ./test-p1-1.s
+    # -- O de esta forma --
+    ./run.sh ./test-p1-2.s
+```
