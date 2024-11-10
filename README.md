@@ -8,7 +8,7 @@ Debe realizarse un fork de este repositorio y el nombre debe corresponderse al a
 Directorios:
 
 - módulos: Deben estar TODOS los módulos implementados (no crear otros directorios con módulos)
-- test-benchs: Por cada módulo debe existir al menos un test-bench. El archivo debe llamarse con el nombre del módulo + "\_tb".
+- test-benchs: El archivo debe llamarse con el nombre del módulo + "\_tb".
 
 ## Informe
 
@@ -19,6 +19,7 @@ Integrantes:
 - Matias Viola Di Benedetto
 
 ### Ejercicio 1
+
 <!--
 ● Describir brevemente qué modificaciones se introdujeron (en qué entidades y con
 qué finalidad). Mostrar el diagrama del nuevo microprocesador, indicando las
@@ -53,7 +54,7 @@ Para desarrollar las instrucciones `ADDI` y `SUBI` se modificaron los módulos:
     endcase
 ```
 
-> Se agrego que según el opcode de la instrucción se seleccione la señal de control correspondiente.
+> Se agregó que según el opcode de la instrucción se seleccione la señal de control correspondiente.
 
 #### **aludec.sv**
 
@@ -77,7 +78,7 @@ Para desarrollar las instrucciones `ADDI` y `SUBI` se modificaron los módulos:
     endcase
 ```
 
-> Se modificó el `signext` pueda extender los valores de las instrucciones `ADDI` y `SUBI`.
+> Se modificó el `signext` para que pueda extender los valores de las instrucciones `ADDI` y `SUBI`.
 
 #### **imem.sv**
 
@@ -85,14 +86,14 @@ Para desarrollar las instrucciones `ADDI` y `SUBI` se modificaron los módulos:
     input logic [9:0] addr
 ```
 
-> Se modifico el tamaño de la dirección de memoria para que entre el nuevo código.
+> Se modificó el tamaño de la dirección de memoria para que entre el nuevo código.
 
 ```sv
     logic [N-1:0] ROM [0:1023] = '{default: 32'b0};
 ```
 
-> Se modifico el tamaño de la memoria ROM para que entre el nuevo código.
-> (Le dejamos bastante espacio para no tener problemas)
+> Se modificó el tamaño de la memoria ROM para que entre el nuevo código.
+> (Le dejamos bastante espacio para no tener problemas).
 
 <!--
 ● Mostrar el programa en assembler LEGv8 modificado que se utilizó para verificar el
@@ -211,6 +212,8 @@ finloop:
     CBZ XZR, finloop
 ```
 
+En el archivo [/test-asm/test-p1-2.s](/test-asm/test-p1-2.s) hay un test que prueba más en profundida los casos para SUBI y ADDI.
+
 ### Ejercicio 2
 
 <!--
@@ -219,7 +222,7 @@ finloop:
   módulos agregados.
 -->
 
-El diagrama del nuevo micro quedo de la siguiente forma:
+El diagrama del nuevo micro quedó de la siguiente forma:
 
 ![Diagrama del nuevo microprocesador](./images/micro_1_nuevo_micro_completo.png)
 
@@ -227,7 +230,7 @@ Para desarrollar las instrucciones `B.cond`, `ADDS`, `SUBS`, `ADDIS` y `SUBIS` s
 
 #### **aludec.sv**
 
-En este modulo agregamos los casos necesarios para las nuevas instrucciones, agregando lo siguiente:
+En este módulo agregamos los casos necesarios para las nuevas instrucciones, agregando lo siguiente:
 
 ```sv
     always_comb
@@ -293,13 +296,13 @@ Simplemente se adapto agregándole la señal: `output logic condBranch`. La cual
 
 #### **processor_arm.sv**
 
-Simplemente se modifico para conectar la nueva señal `condBranch` que sale del `controller` al `datapath`.
+Simplemente se modificó para conectar la nueva señal `condBranch` que sale del `controller` al `datapath`.
 
 ![Diagrama del processor_arm nueva señal condBranch](./images/micro_2_micro_señal_condbranch.png)
 
 #### **signext.sv**
 
-Este modulo se modifico para manejar correctamente todos los casos, agregando los siguientes:
+Éste módulo se modificó para manejar correctamente todos los casos, agregando los siguientes:
 
 ```sv
     11'b010_1010_0???: y = {{45{a[23]}}, a[23:5]};         // B.cond
@@ -311,7 +314,7 @@ Este modulo se modifico para manejar correctamente todos los casos, agregando lo
 
 Ahora la alu tiene los siguientes nuevos outputs logic: **zero_flag**, **negative**, **carry** y **overflow**, **write_flags**.
 
-Ademas se modifico como se hace la suma y la resta para setear las flags, quedando así:
+Además se modificó como se hace la suma y la resta para setear las flags, quedando así:
 
 ```sv
     4'b?010: begin // SUMA
@@ -343,7 +346,7 @@ Teniendo en cuenta que `write_flags` se detecta por:
 Finalmente se setean el resto de las flags de la siguiente forma:
 
 ```sv
-    if (write_flags === 1) begin // Si seta flags las setamos
+    if (write_flags === 1) begin // Si write_flags es 1, se setean las flags
         // Bandera de carry
         carry = (aux_result[N] === '1);
         // Bandera Zero
@@ -356,10 +359,10 @@ Finalmente se setean el resto de las flags de la siguiente forma:
 Notar que el resultado se encuentra en `aux_result`:
 
 ```sv
-logic [N:0] aux_result; // Tiene un bit de mas para detectar al carry
+logic [N:0] aux_result; // Tiene un bit de más para detectar al carry
 ```
 
-y debido a esto se modifico también al final lo siguiente:
+y debido a esto se modificó también al final lo siguiente:
 
 ```sv
     zero = (aux_result[N-1:0] === '0) ? 1'b1 : 1'b0;
@@ -368,11 +371,11 @@ y debido a esto se modifico también al final lo siguiente:
 
 #### **flopenr.sv**
 
-Se creo este nuevo modulo que usamos en el registro de flags que a diferencia del otro `flopr` ya que teníamos, este setea solo si la señal de `enable` esta encendida.
+Se creó este nuevo módulo que usamos en el registro de flags que a diferencia del otro `flopr` que ya teníamos, éste setea solo si la señal de `enable` está encendida.
 
 #### **execute.sv**
 
-Se modifico para agregarle y conectar las señales de flags que se setean en la alu que son guardadas en `CPSR_flags` usando el modulo `flopenr`. Ademas fue necesario traerle el `clk` y el `reset` para el modulo `flopenr`. Quedando:
+Se modificó para agregarle y conectar las señales de flags que se setean en la alu que son guardadas en `CPSR_flags` usando el módulo `flopenr`. Además fue necesario traerle el `clk` y el `reset` para el módulo `flopenr`. Quedando:
 
 ```sv
     flopenr   #(4)      CPSR_flags (.clk(clk),
@@ -392,27 +395,27 @@ Se modifico para agregarle y conectar las señales de flags que se setean en la 
                                     }));
 ```
 
-Finalmente las agregamos que justamente estas señales salgan del modulo por `zero_flag_E, negative_E, carry_E, overflow_E`.
+Finalmente agregamos las señales, para que salgan del módulo por `zero_flag_E, negative_E, carry_E, overflow_E`.
 
-El diagrama de este modulo quedo de la siguiente forma:
+El diagrama de èste módulo quedó de la siguiente forma:
 
 ![Diagrama del execute](./images/micro_5_nuevo_execute.png)
 
 #### **datapath.sv**
 
-Este modulo se modifico para conectar las señales de flags que salen del `execute` (estas señales son las que están guardadas en `CPSR_flags`, las otras quedaron igual) al modulo de `memory`. Usando los registros del pipeline para que las señales viajen correctamente.
+Este módulo se modificó para conectar las señales de flags que salen del `execute` (estas señales son las que están guardadas en `CPSR_flags`, las otras quedaron igual) al módulo de `memory`. Usando los registros del pipeline para que las señales viajen correctamente.
 
-Ademas hicimos que la señal `condBranch` viaje correctamente por el pipeline.
+Además hicimos que la señal `condBranch` viaje correctamente por el pipeline.
 
-El diagrama de este modulo quedo de la siguiente forma:
+El diagrama de este módulo quedó de la siguiente forma:
 
 ![Diagrama del datapath](./images/micro_4_nuevas_señales_datapath.png)
 
 #### **memory.sv**
 
-Como mencionamos anteriormente agregamos nuevas entradas a este modulo, específicamente:
+Como mencionamos anteriormente agregamos nuevas entradas a este módulo, específicamente:
 `input logic Branch_M, zero_M, zero_flag, negative, overflow, carry, bCondCheck`
-Y lo modificamos agregando el nuevo modulo `bCondCheck` y un mux para mantener la señal de `Branch` o la de `condBranch` según corresponda. Quedando de la siguiente forma:
+Y lo modificamos agregando el nuevo módulo `bCondCheck` y un mux para mantener la señal de `Branch` o la de `condBranch` según corresponda. Quedando de la siguiente forma:
 
 ```sv
     logic B_cond_is;
@@ -432,13 +435,13 @@ Y lo modificamos agregando el nuevo modulo `bCondCheck` y un mux para mantener l
     mux2 #(1) MUX2 (.d0(PCSrc_M_aux_), .d1(B_cond_is), .s(bCondCheck), .y(PCSrc_M));
 ```
 
-El diagrama de este modulo quedo de la siguiente forma:
+El diagrama de este módulo quedó de la siguiente forma:
 
 ![Diagrama del memory](./images/micro_6_nueva_memory.png)
 
 #### **bCondCheck.sv**
 
-Este es un nuevo modulo encargado de chequear las condiciones del `B.cond` quedando de la siguiente forma:
+Este es un nuevo módulo encargado de chequear las condiciones del `B.cond` quedando de la siguiente forma:
 
 ```sv
 module bCondCheck (
@@ -466,8 +469,8 @@ module bCondCheck (
                 5'b01001: B_cond_is = ~((zero === 0) && carry);                         //B.LS
                 5'b01010: B_cond_is = (negative === overflow);                          //B.GE
                 5'b01011: B_cond_is = (negative !== overflow);                          //B.LT
-                5'b01100: B_cond_is = ((zero === 0) && (negative === overflow));    //B.GT
-                5'b01101: B_cond_is = ~((zero === 0) && (negative === overflow));   //B.LE
+                5'b01100: B_cond_is = ((zero === 0) && (negative === overflow));        //B.GT
+                5'b01101: B_cond_is = ~((zero === 0) && (negative === overflow));       //B.LE
                 default: B_cond_is = 0;
             endcase
         end
@@ -478,7 +481,7 @@ endmodule
 
 #### **imem.sv** y **imem.txt**
 
-Se modifico la `imem` con el fin de poder cargarla a partir del archivo `imem.txt`.
+Se modificó la `imem` con el fin de poder cargarla a partir del archivo `imem.txt`.
 
 #### Programas en assembler
 
@@ -492,28 +495,28 @@ Se modifico la `imem` con el fin de poder cargarla a partir del archivo `imem.tx
 -->
 
 Nuestros test:
-Todos los test, para cada B.cond testean al menos un caso de salto y no salto para cada combinacion de los valores de las flags que utiliza.
+Todos los test, para cada B.cond testean al menos un caso de salto y no salto para cada combinación de los valores de las flags que utiliza.
 
-| Archivo                | B.cond | Flags |
-|------------------------|-------------|--------------|
-| test-p2-eq-ne-lo-mi-hs.s |     EQ, NE, LO, MI, HS | Z (EQ, NE), C (LO, HS), N (MI) |
-| test-p2-hi.s             |     HI                 | Z, C    |
-| test-p2-ls.s             |     LS                 | Z, C    |
-| test-p2-eq.s             |     EQ                 | Z       |
-| test-p2-pl.s             |     PL                 | N       |
-| test-p2-lt.s             |     LT                 | N, V    |
-| test-p2-ge.s             |     GE                 | N, V    |
-| test-p2-le.s             |     LE                 | Z, N, V |
-| test-p2-gt.s             |     GT                 | Z, N, V |
-| test-p2-vs.s             |     VS                 | V       |
-| test-p2-vc.s             |     VS                 | V       |
+| Archivo                  | B.cond             | Flags                          |
+| ------------------------ | ------------------ | ------------------------------ |
+| test-p2-eq-ne-lo-mi-hs.s | EQ, NE, LO, MI, HS | Z (EQ, NE), C (LO, HS), N (MI) |
+| test-p2-hi.s             | HI                 | Z, C                           |
+| test-p2-ls.s             | LS                 | Z, C                           |
+| test-p2-eq.s             | EQ                 | Z                              |
+| test-p2-pl.s             | PL                 | N                              |
+| test-p2-lt.s             | LT                 | N, V                           |
+| test-p2-ge.s             | GE                 | N, V                           |
+| test-p2-le.s             | LE                 | Z, N, V                        |
+| test-p2-gt.s             | GT                 | Z, N, V                        |
+| test-p2-vs.s             | VS                 | V                              |
+| test-p2-vc.s             | VS                 | V                              |
 
-La explicacion de como ejecutamos los test esta en [test-asm/README.md](test-asm/README.md).
+La explicación de como ejecutamos los test está en [test-asm/README.md](test-asm/README.md).
 
 A tener en cuenta:
-Cada caso de test tiene un ID, si este anda se imprime en el archivo mem.dump, sino, se imprime -ID.
+Cada caso de test tiene un ID, si éste anda se imprime en el archivo mem.dump, sino, se imprime -ID.
 
-Los test que utilizan la flag V (overflow) necesitan en el regfile.sv esta inicializacion:
+Los test que utilizan la flag V (overflow) necesitan en el regfile.sv esta inicialización:
 
 ```sv
 logic [63:0] regs [0:31] = '{
