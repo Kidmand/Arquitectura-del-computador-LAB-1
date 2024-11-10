@@ -209,6 +209,61 @@ t10_GT:
     STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF6 (si falla) else 0x0
 t10_GT_end:
 // --------------------------------------------------------------------
+    ADD x20, x20, #16 // i += 16
+    ADD x21, x21, #1
+    SUB x22, x22, #1
+// 11 --------------------------------------------------------------------
+    // Test de B.GE // caso de salto
+    SUBS X28, X4, XZR      // x28= 4 - 0 => 4 > 0 => true
+
+    B.GT t11_GT                
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    STUR x22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF5 (si falla) else 0x0
+t11_GT:
+    STUR X21, [x20, #8]     // MEM: 0xB
+// --------------------------------------------------------------------
+    ADD x20, x20, #16 // i += 16
+    ADD x21, x21, #1
+    SUB x22, x22, #1
+// 12 --------------------------------------------------------------------
+    // Test de B.GE // caso de no salto
+     SUBS X28, XZR, X4      // x28= 0 - 4 => 0 > 4 => false
+
+    B.GT t12_GT                
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    STUR x21, [x20, #8]     // MEM: 0xC
+    CBZ XZR, t12_GT_end
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+t12_GT:
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF4 (si falla) else 0x0
+t12_GT_end:
+// --------------------------------------------------------------------
+    ADD x20, x20, #16 // i += 16
+    ADD x21, x21, #1
+    SUB x22, x22, #1
+// 13 --------------------------------------------------------------------
+    // Test de B.GE // caso de no salto
+     SUBS X28, XZR, XZR      // x28= 0 - 0 => 0 > 0 => false
+
+    B.GT t13_GT                
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    STUR x21, [x20, #8]     // MEM: 0xD
+    CBZ XZR, t13_GT_end
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+t13_GT:
+    STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF3 (si falla) else 0x0
+t13_GT_end:
+// --------------------------------------------------------------------
 
 endloop:
     CBZ XZR, endloop
