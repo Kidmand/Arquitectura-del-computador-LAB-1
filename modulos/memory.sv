@@ -1,5 +1,4 @@
-// Etapa: MEMORY
-
+// MEMORY
 module memory     (input logic Branch_M, zero_M, zero_flag, negative, overflow, carry, bCondCheck,
                     input logic [4:0] Rt_B_cond,
                     output logic PCSrc_M);

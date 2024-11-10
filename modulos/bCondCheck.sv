@@ -1,3 +1,4 @@
+// BCONDCHECK
 module bCondCheck (
     input logic zero,
     input logic negative,
@@ -23,8 +24,8 @@ module bCondCheck (
                 5'b01001: B_cond_is = ~((zero === 0) && carry);                         //B.LS
                 5'b01010: B_cond_is = (negative === overflow);                          //B.GE
                 5'b01011: B_cond_is = (negative !== overflow);                          //B.LT
-                5'b01100: B_cond_is = ((zero === 0) && (negative === overflow));    //B.GT
-                5'b01101: B_cond_is = ~((zero === 0) && (negative === overflow));   //B.LE
+                5'b01100: B_cond_is = ((zero === 0) && (negative === overflow));        //B.GT
+                5'b01101: B_cond_is = ~((zero === 0) && (negative === overflow));       //B.LE
                 default: B_cond_is = 0;
             endcase
         end

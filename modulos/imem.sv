@@ -1,3 +1,4 @@
+// IMEM
 module imem
     #(parameter int unsigned N = 32) (
     input logic [9:0] addr,

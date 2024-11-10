@@ -1,3 +1,4 @@
+// FETCH
 module fetch
     #(parameter int unsigned N = 64)
     (input logic PCSrc_F, clk, reset,

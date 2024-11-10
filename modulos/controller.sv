@@ -1,5 +1,4 @@
 // CONTROLLER
-
 module controller(input logic [10:0] instr,
                         output logic [3:0] AluControl,
                         output logic reg2loc, regWrite, AluSrc, Branch,

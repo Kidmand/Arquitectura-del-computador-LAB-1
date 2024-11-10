@@ -1,5 +1,4 @@
 // PIPELINED PROCESSOR
-
 module processor_arm #(parameter N = 64)
                             (input logic CLOCK_50, reset,
                             output logic [N-1:0] DM_writeData, DM_addr,

@@ -1,3 +1,4 @@
+//REGFILE
 module regfile(
     input logic clk,
     input logic we3,             // Señal       de escritura

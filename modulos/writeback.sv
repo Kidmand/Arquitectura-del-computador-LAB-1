@@ -1,5 +1,4 @@
-// Etapa: WRITEBACK
-
+// WRITEBACK
 module writeback #(parameter N = 64)
                     (input logic [N-1:0] aluResult_W, DM_readData_W,
                     input logic memtoReg,

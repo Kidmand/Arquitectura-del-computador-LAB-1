@@ -1,5 +1,4 @@
 // DATAPATH
-
 module datapath #(parameter N = 64)
                     (input logic reset, clk,
                     input logic reg2loc,

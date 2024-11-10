@@ -1,3 +1,4 @@
+//FLOPR
 module flopr #(parameter int unsigned N = 64)
     (input logic clk,
      input logic reset,

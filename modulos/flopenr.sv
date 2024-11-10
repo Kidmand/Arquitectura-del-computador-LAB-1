@@ -1,3 +1,4 @@
+// FLOPENR
 module flopenr #(parameter int unsigned N = 64)
     (input logic clk,
      input logic reset,
