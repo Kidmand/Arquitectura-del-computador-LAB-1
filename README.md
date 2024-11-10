@@ -481,7 +481,7 @@ endmodule
 
 Se modifico la `imem` con el fin de poder cargarla a partir del archivo `imem.txt`.
 
-#### Programa en assembler
+#### Programas en assembler
 
 <!--
 ● Escribir una sección de código assembler, donde se pruebe el funcionamiento de las
@@ -492,4 +492,34 @@ Se modifico la `imem` con el fin de poder cargarla a partir del archivo `imem.tx
   procesador y el contenido de memoria al finalizar su ejecución.
 -->
 
-<!-- TODO: Completar ... -->
+Nuestros test:
+Todos los test, para cada B.cond testean al menos un caso de salto y no salto para cada combinacion de los valores de las flags que utiliza.
+
+| Archivo                | B.cond | Flags |
+|------------------------|-------------|--------------|
+| test-p2-eq-ne-lo-mi-hs.s |     EQ, NE, LO, MI, HS | Z (EQ, NE), C (LO, HS), N (MI) |
+| test-p2-hi.s             |     HI                 | Z, C    |
+| test-p2-ls.s             |     LS                 | Z, C    |
+| test-p2-eq.s             |     EQ                 | Z       |
+| test-p2-pl.s             |     PL                 | N       |
+| test-p2-lt.s             |     LT                 | N, V    |
+| test-p2-ge.s             |     GE                 | N, V    |
+| test-p2-le.s             |     LE                 | Z, N, V |
+| test-p2-gt.s             |     GT                 | Z, N, V |
+| test-p2-vs.s             |     VS                 | V       |
+| test-p2-vc.s             |     VS                 | V       |
+
+La explicacion de como ejecutamos los test esta en [test-asm/README.md](test-asm/README.md).
+
+A tener en cuenta:
+Cada caso de test tiene un ID, si este anda se imprime en el archivo mem.dump, sino, se imprime -ID.
+
+Los test que utilizan la flag V (overflow) necesitan en el regfile.sv esta inicializacion:
+
+logic [63:0] regs [0:31] = '{
+    64'd0, 64'd1, 64'd2, 64'd3, 64'd4, 64'd5, 64'd6, 64'd7,
+    64'd8, 64'd9, 64'd10, 64'd11, 64'd12, 64'd13, 64'd14,
+    64'd15, 64'd16, 64'h7FFFFFFFFFFFFFFF, 64'h8000000000000000,
+    64'd19, 64'd20, 64'd21, 64'd22, 64'd23, 64'd24, 64'd25,
+    64'd26, 64'd27, 64'd28, 64'd29, 64'd30, 64'd0
+};
