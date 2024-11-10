@@ -213,7 +213,7 @@ t10_GT_end:
     ADD x21, x21, #1
     SUB x22, x22, #1
 // 11 --------------------------------------------------------------------
-    // Test de B.GE // caso de salto
+    // Test de B.GT // caso de salto
     SUBS X28, X4, XZR      // x28= 4 - 0 => 4 > 0 => true
 
     B.GT t11_GT                
@@ -228,7 +228,7 @@ t11_GT:
     ADD x21, x21, #1
     SUB x22, x22, #1
 // 12 --------------------------------------------------------------------
-    // Test de B.GE // caso de no salto
+    // Test de B.GT // caso de no salto
      SUBS X28, XZR, X4      // x28= 0 - 4 => 0 > 4 => false
 
     B.GT t12_GT                
@@ -248,7 +248,7 @@ t12_GT_end:
     ADD x21, x21, #1
     SUB x22, x22, #1
 // 13 --------------------------------------------------------------------
-    // Test de B.GE // caso de no salto
+    // Test de B.GT // caso de no salto
      SUBS X28, XZR, XZR      // x28= 0 - 0 => 0 > 0 => false
 
     B.GT t13_GT                
