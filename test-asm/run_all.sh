@@ -1,8 +1,18 @@
 #!/bin/bash
+
 FILES=(
-
-    "test-p2-vc.s" 
-
+   "test-p1-2.s" 
+   "test-p2-eq.s" 
+   "test-p2-eq-ne-lo-mi-hs.s" 
+   "test-p2-ge.s" 
+   "test-p2-gt.s" 
+   "test-p2-hi.s" 
+   "test-p2-le.s" 
+   "test-p2-ls.s" 
+   "test-p2-lt.s" 
+   "test-p2-pl.s" 
+   "test-p2-vc.s" 
+   "test-p2-vs.s"
 )
 
 for TEST_FILE in "${FILES[@]}"; do
