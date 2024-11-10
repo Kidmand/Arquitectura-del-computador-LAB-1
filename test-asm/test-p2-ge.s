@@ -343,7 +343,7 @@ t15_GE:
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
     STUR x21, [x20, #8]     // MEM: 0x10
-    CBZ XZR, t14_GE_end
+    CBZ XZR, t16_GE_end
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
