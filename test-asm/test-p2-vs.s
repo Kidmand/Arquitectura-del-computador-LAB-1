@@ -14,10 +14,10 @@
     // NOTE: X17 = 0x7FFFFFFFFFFFFFFF
     //       X18 = 0x8000000000000000
 
-    // [] caso SUBIS de    salto mayor positivo B.VS:  V=1  signed and unsigned   ID = 1
-    // [] caso ADDIS de    salto mayor negativo B.VS:  V=1  signed and unsigned   ID = 2
-    // [] caso SUBIS de no salto mayor positivo B.VS:  V=0  signed and unsigned   ID = 3
-    // [] caso ADDIS de no salto mayor negativo B.VS:  V=0  signed and unsigned   ID = 4
+    // [x] caso SUBIS de    salto mayor positivo B.VS:  V=1  signed and unsigned   ID = 1
+    // [x] caso ADDIS de    salto mayor negativo B.VS:  V=1  signed and unsigned   ID = 2
+    // [x] caso SUBIS de no salto mayor positivo B.VS:  V=0  signed and unsigned   ID = 3
+    // [x] caso ADDIS de no salto mayor negativo B.VS:  V=0  signed and unsigned   ID = 4
 
 // ----------------------------VS----------------------------
     // caso ADDIS de    salto mayor positivo B.VS:  V=1  signed and unsigned   ID = 1
@@ -69,7 +69,7 @@
     // caso SUBIS de no salto mayor positivo B.VS:  V=0  signed and unsigned   ID = 3
             ADDS X28, X17, #0 // => V=0
 
-            B.HI t3_HI
+            B.VS t3_VS
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
@@ -77,22 +77,22 @@
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
             STUR X30, [X0, #16] // Si anda MEM: 0x3
-            CBZ XZR, t3_HI_end
+            CBZ XZR, t3_VS_end
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-        t3_HI:    
+        t3_VS:    
             ADD X30, X0, #-3
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
             STUR X30, [X0, #16] // Si falla MEM: 0xFFFFFFFFFFFFFFFD
-        t3_HI_end:
+        t3_VS_end:
 
     // --------------------------------------------------------
     // caso ADDIS de no salto mayor negativo B.VS:  V=0  signed and unsigned   ID = 4
             ADDS X28, X18, #1 // => V=0
 
-            B.HI t4_HI
+            B.VS t4_VS
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
@@ -100,16 +100,16 @@
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
             STUR X30, [X0, #24] // Si anda MEM: 0x4
-            CBZ XZR, t4_HI_end
+            CBZ XZR, t4_VS_end
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
-        t4_HI:    
+        t4_VS:    
             ADD X30, X0, #-4
                 ADD XZR, XZR, XZR
                 ADD XZR, XZR, XZR
             STUR X30, [X0, #24] // Si falla MEM: 0xFFFFFFFFFFFFFFFC
-        t4_HI_end:
+        t4_VS_end:
 endloop:
     CBZ XZR, endloop
 
