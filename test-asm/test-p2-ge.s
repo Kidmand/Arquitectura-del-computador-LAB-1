@@ -316,6 +316,22 @@ t14_GE:
     STUR X22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF2 (si falla) else 0x0
 t14_GE_end:
 // --------------------------------------------------------------------
+    ADD x20, x20, #16 // i += 16
+    ADD x21, x21, #1
+    SUB x22, x22, #1
+// 15 --------------------------------------------------------------------
+    // Test de B.GE // caso de salto
+    SUBS X28, X4, XZR      // x28= 4 - 0 => 4 >= 0 => true
+
+    B.GE t15_GE                
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+        ADD XZR, XZR, XZR
+    STUR x22, [x20, #0]     // MEM: 0xFFFFFFFFFFFFFFF1 (si falla) else 0x0
+t15_GE:
+    STUR X21, [x20, #8]     // MEM: 0xF
+// --------------------------------------------------------------------
+
 
 endloop:
     CBZ XZR, endloop
