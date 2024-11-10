@@ -15,11 +15,10 @@ Directorios:
 Integrantes:
 
 - Ramiro Lugo Viola
-- Matías Viola
-- Daián Giménez
+- Daián García Giménez
+- Matias Viola Di Benedetto
 
 ### Ejercicio 1
-
 <!--
 ● Describir brevemente qué modificaciones se introdujeron (en qué entidades y con
 qué finalidad). Mostrar el diagrama del nuevo microprocesador, indicando las
