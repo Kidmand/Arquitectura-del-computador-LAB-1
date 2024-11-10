@@ -177,7 +177,7 @@ t8_GT:
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
-    STUR X21, [x20, #8]     // MEM: 0x7
+    STUR X21, [x20, #8]     // MEM: 0x9
     CBZ XZR, t9_GT_end
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
@@ -200,7 +200,7 @@ t9_GT_end:
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
-    STUR X21, [x20, #8]     // MEM: 0x8
+    STUR X21, [x20, #8]     // MEM: 0xA
     CBZ XZR, t10_GT_end
         ADD XZR, XZR, XZR
         ADD XZR, XZR, XZR
